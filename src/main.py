@@ -1,15 +1,19 @@
 import pygame as pg
+from grid import Grid
 
 pg.init()
 
-WINDOW_WIDTH = 1000
-WINDOW_HEIGHT = 800
+cell_size = 20
+window_width = 1000
+window_height = 800
 FPS = 120
 
-window = pg.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+window = pg.display.set_mode((window_width, window_height))
 pg.display.set_caption("Particle Sandbox")
 
 clock = pg.time.Clock()
+
+grid = Grid(window_width, window_height, cell_size)
 
 def main():
     while True:
@@ -19,6 +23,7 @@ def main():
                 quit()
 
         window.fill((0, 0, 0))
+        grid.draw(window)
 
         pg.display.update()
         clock.tick(FPS)
