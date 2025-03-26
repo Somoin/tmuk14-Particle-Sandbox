@@ -1,9 +1,9 @@
 # tmuk14-Particle-Sandbox
 A particle sandbox for simulating simple particles such as sand, water and other elements. Made with Pygame
 
-- Simon Lorentzon,    Somoin
-- Alexander Lundahl,  Aleccoz
-- Edrin Zahiri,       EdrinZahiri
+- Simon Lorentzon    [Somoin](https://github.com/Somoin)
+- Alexander Lundahl  [Aleccoz](https://github.com/Aleccoz)
+- Edrin Zahiri       [EdrinZahiri](https://github.com/EdrinZahiri)
 
 # Declaration
 
