@@ -1,11 +1,11 @@
 import pygame as pg
 from classes.grid import Grid
 from classes.button import Button
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
+
+from classes.particles.particle import SandParticle
 
 pg.init()
 
