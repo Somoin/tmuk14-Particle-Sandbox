@@ -1,4 +1,4 @@
 #Ignore _pychache_ folder
-src/__pycache__/
-src/classes/__pycache__/
+**/__pycache__/
+
 
