@@ -13,7 +13,8 @@ class ParticleType(Enum):
     WATER = 2
     CEMENT = 3
     AIR = 4
-
+    #default = AIR
+   
 pg.init()
 
 
@@ -43,29 +44,50 @@ simulation.add_particle(SandParticle(), 21, 20)
 
 
 def main():
+    particle_type = ParticleType.AIR
+    left_click_down = False
+    right_click_down = False
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
-            if event.type == pg.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1: # Left mouse button held
+                left_click_down = True
+            elif event.type == pg.MOUSEBUTTONUP and event.button == 1: # Left mouse button released
+                left_click_down = False
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 3: # Right mouse button held
+                right_click_down = True
+            elif event.type == pg.MOUSEBUTTONUP and event.button == 3: # Right mouse button released
+                right_click_down = False
 
-                
-               
-                if pg.mouse.get_pressed()[0] == 1: # Left mouse button
-                    simulation.add_particle(SandParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
-                if pg.mouse.get_pressed()[2] == 1: # Right mouse button
-                    simulation.remove_particle(pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
-
+            if event.type == pg.MOUSEBUTTONDOWN: #Registers when clicked once
                 if sand_button.check_press(pg.mouse.get_pos()):
                     print("Sand Button Pressed")
-                   
+                    particle_type = ParticleType.SAND
                 if water_button.check_press(pg.mouse.get_pos()):
                     print("Water Button Pressed")
-                   
+                    particle_type = ParticleType.WATER
                 if cement_button.check_press(pg.mouse.get_pos()):
                     print("Cement Button Pressed")
-                  
+                    particle_type = ParticleType.CEMENT
+
+                print(particle_type.name)
+                
+            if left_click_down == True: # Registers when held down
+                if particle_type == ParticleType.SAND:
+                    simulation.add_particle(SandParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                # elif particle_type == ParticleType.WATER:
+                #     print("Water Particle Added")
+                     #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                #  elif particle_type == ParticleType.CEMENT:
+                    #simulation.add_particle(CementParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                #    print("Cement Particle Added")
+            elif right_click_down == True: # Right mouse button
+                    simulation.remove_particle(pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                
+
+              
 
               
 
