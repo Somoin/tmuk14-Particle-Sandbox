@@ -3,26 +3,39 @@ import pygame as pg
 
 class Button:
     def __init__(self, image_file, pos_x, pos_y, image_file_hover):
-        self.image = pg.image.load(image_file).convert_alpha()
-        self.image_hover = pg.image.load(image_file_hover).convert_alpha()
-        self.rect = self.image.get_rect(center = (pos_x, pos_y))
+        self.image_default = pg.image.load(image_file).convert_alpha() #The original image
+        self.image_hover = pg.image.load(image_file_hover).convert_alpha() #The image when hovered
+        self.rect = self.image_default.get_rect(center = (pos_x, pos_y))
 
     def check_hover(self, mouse_pos):
         if self.rect.collidepoint(mouse_pos):
             return True
         else:
-            False
+            return False
     
     def draw(self, window):
+        
+        # Scale factor for the button size
+        scale_factor = 1.05 
         # Check if the mouse is hovering over the button
         if self.check_hover(pg.mouse.get_pos()):
-            # Transform the size of button
-            self.image = pg.transform.scale(self.image_hover, (self.rect.width+5, self.rect.height+5))
+            # Transform the size of button and change image
+            self.image = pg.transform.scale(self.image_hover, (self.rect.width * scale_factor, self.rect.height * scale_factor))
+
+            # Center the button
+            new_x = self.rect.centerx - (self.rect.width * scale_factor) // 2 
+            new_y = self.rect.centery - (self.rect.height * scale_factor) // 2
+
+            new_rect = pg.Rect(new_x, new_y, self.rect.width * scale_factor, self.rect.height * scale_factor)
+
         else:
-            self.image = pg.transform.scale(self.image, (self.rect.width, self.rect.height))
-        window.blit(self.image, self.rect)
+            # Return to the original state of the button
+            self.image = pg.transform.scale(self.image_default, (self.rect.width, self.rect.height))
+            new_rect = self.rect
+        window.blit(self.image, new_rect)
      
     def check_press(self, mouse_pos):
         if self.rect.collidepoint(mouse_pos):
             return True
-        return False
+        else:
+            return False
