@@ -6,11 +6,10 @@ class SandParticle(Particle):
         super().__init__("sand", (194, 178, 128), grid, x ,y)
     
     def update(self, grid, x, y):
-        
-        if self.grid.cells[x][y+1] is None:
-            print('m')
+        if y == self.grid.rows-1:
+            return (x,y)
+        elif self.grid.cells[x][y+1] is None:
             return (x,y+1)   
         else:
-            print('n')
             return (x,y)
         
