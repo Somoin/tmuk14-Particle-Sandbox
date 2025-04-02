@@ -30,10 +30,10 @@ sand_button = Button("src/images/sandbutton.png", 100, 550, "src/images/sandbutt
 water_button = Button("src/images/waterbutton.png", 300, 550, "src/images/waterbutton_hover.png")
 cement_button = Button("src/images/cementbutton.png", 500, 550, "src/images/cementbutton_hover.png")
 
-simulation.add_particle(SandParticle(), 10, 10)
-simulation.add_particle(SandParticle(), 20, 20)
+simulation.add_particle(SandParticle(simulation.grid, 10, 10), 10, 10)
+simulation.add_particle(SandParticle(simulation.grid, 20, 20), 20, 20)
 simulation.remove_particle(20, 20)
-simulation.add_particle(SandParticle(), 21, 20)
+simulation.add_particle(SandParticle(simulation.grid, 21, 20), 21, 20)
 
 def main():
     while True:

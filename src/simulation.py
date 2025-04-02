@@ -19,8 +19,17 @@ class Simulation:
             self.cells[x][y] = None
 
     def update(self):
-        for row in range(self.rows):
-            for col in range(self.cols):
-                particle = self.cells[row][col]
-                if particle is not None:
-                    particle.update()
+        for col in range(self.cols):
+            for row in range(self.rows):
+                particle = self.cells[col][row]
+                if particle is None:
+                    continue
+                if particle.update(self.grid, col, row) == (col,row): # Particle is not moving
+                    continue
+                else:
+                    print("Particle is moving")
+                    self.add_particle(particle, particle.update(self.grid, col, row)[0], particle.update(self.grid, col, row)[1]) 
+                    self.remove_particle(col, row)
+                    
+
+        
