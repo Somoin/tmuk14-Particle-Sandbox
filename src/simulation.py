@@ -1,8 +1,7 @@
 from classes.grid import Grid
 
 class Simulation:
-    def __init__(self, window_width, window_height, cell_size, clock):
-        self.clock = clock
+    def __init__(self, window_width, window_height, cell_size):
         self.grid = Grid(window_width, window_height, cell_size)
         self.rows = self.grid.rows
         self.cols = self.grid.cols

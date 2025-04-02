@@ -1,5 +1,4 @@
 import pygame as pg
-#from classes.grid import Grid
 from classes.button import Button
 from simulation import Simulation 
 
@@ -31,8 +30,7 @@ pg.display.set_caption("Particle Sandbox")
 
 clock = pg.time.Clock()
 
-#grid = Grid(window_width, window_height-300, cell_size)
-simulation = Simulation(window_width, window_height-300, cell_size, clock)
+simulation = Simulation(window_width, window_height-300, cell_size)
 fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255), (60, 25)) # fps_counter(window, font, clock, color, pos)
 
 sand_button = Button("src/images/sandbutton.png", 100, 550, "src/images/sandbutton_hover.png")
@@ -43,9 +41,11 @@ cement_button = Button("src/images/cementbutton.png", 500, 550, "src/images/ceme
 
 
 def main():
+
     particle_type = ParticleType.AIR
     left_click_down = False
     right_click_down = False
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -99,9 +99,8 @@ def main():
         cement_button.draw(window)
 
         simulation.draw(window)
-       
-
-        #grid.draw(window)
+      
+        
         simulation.update()
         
 

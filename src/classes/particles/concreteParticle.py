@@ -13,5 +13,5 @@ class ConcreteParticle(Particle):
         super().__init__("concrete", rd.choice(colors), grid, x ,y)
     
     def update(self, grid, x, y):
-            return (x,y)
+            return (x,y) # Always stay in place
         
