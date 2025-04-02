@@ -16,7 +16,7 @@ class Grid:
     def draw (self, window): 
         for col in range(self.cols):
             for row in range(self.rows):
-                color = 'gray'
+                color = (30,30,30)
                 if self.cells[col][row] is not None:
                     particle = self.cells[col][row]
                     color = particle.color

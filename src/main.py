@@ -6,6 +6,8 @@ from simulation import Simulation
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
 
 from classes.particles.sandParticle import SandParticle
+from classes.particles.concreteParticle import ConcreteParticle
+
 from enum import Enum
 
 class ParticleType(Enum):
@@ -80,11 +82,11 @@ def main():
                 # elif particle_type == ParticleType.WATER:
                 #     print("Water Particle Added")
                      #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
-                #  elif particle_type == ParticleType.CEMENT:
-                    #simulation.add_particle(CementParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                elif particle_type == ParticleType.CEMENT:
+                    simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
                 #    print("Cement Particle Added")
             elif right_click_down == True: # Right mouse button
-                    simulation.remove_particle(pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                    simulation.remove_particle(mouseX, mouseY)
                 
 
               
