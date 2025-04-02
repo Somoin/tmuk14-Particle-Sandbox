@@ -21,7 +21,7 @@ pg.init()
 
 
 
-cell_size = 10
+cell_size = 8
 window_width = 1000
 window_height = 800
 FPS = 120
@@ -73,20 +73,20 @@ def main():
 
                 print(particle_type.name)
                 
-            mouseX = pg.mouse.get_pos()[0]//cell_size
-            mouseY = pg.mouse.get_pos()[1]//cell_size
+        mouseX = pg.mouse.get_pos()[0]//cell_size
+        mouseY = pg.mouse.get_pos()[1]//cell_size
 
-            if left_click_down == True: # Registers when held down
-                if particle_type == ParticleType.SAND:
-                    simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-                # elif particle_type == ParticleType.WATER:
-                #     print("Water Particle Added")
-                     #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
-                elif particle_type == ParticleType.CEMENT:
-                    simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-                #    print("Cement Particle Added")
-            elif right_click_down == True: # Right mouse button
-                    simulation.remove_particle(mouseX, mouseY)
+        if left_click_down == True: # Registers when held down
+            if particle_type == ParticleType.SAND:
+                simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+            # elif particle_type == ParticleType.WATER:
+            #     print("Water Particle Added")
+                    #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+            elif particle_type == ParticleType.CEMENT:
+                simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+            #    print("Cement Particle Added")
+        elif right_click_down == True: # Right mouse button
+                simulation.remove_particle(mouseX, mouseY)
                 
 
               
