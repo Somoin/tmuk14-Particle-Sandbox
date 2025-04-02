@@ -3,10 +3,16 @@ import pygame as pg
 from classes.button import Button
 from simulation import Simulation 
 
-
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
 
 from classes.particles.sandParticle import SandParticle
+from enum import Enum
+
+class ParticleType(Enum):
+    SAND = 1
+    WATER = 2
+    CEMENT = 3
+    AIR = 4
 
 pg.init()
 
@@ -35,6 +41,7 @@ simulation.add_particle(SandParticle(), 20, 20)
 simulation.remove_particle(20, 20)
 simulation.add_particle(SandParticle(), 21, 20)
 
+
 def main():
     while True:
         for event in pg.event.get():
@@ -42,12 +49,25 @@ def main():
                 pg.quit()
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
+
+                
+               
+                if pg.mouse.get_pressed()[0] == 1: # Left mouse button
+                    simulation.add_particle(SandParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+                if pg.mouse.get_pressed()[2] == 1: # Right mouse button
+                    simulation.remove_particle(pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+
                 if sand_button.check_press(pg.mouse.get_pos()):
                     print("Sand Button Pressed")
+                   
                 if water_button.check_press(pg.mouse.get_pos()):
                     print("Water Button Pressed")
+                   
                 if cement_button.check_press(pg.mouse.get_pos()):
                     print("Cement Button Pressed")
+                  
+
+              
 
         window.fill((0, 0, 0))
         sand_button.draw(window)

@@ -11,7 +11,7 @@ class Simulation:
         self.grid.draw(window)
 
     def add_particle(self, particle, x, y):
-        if 0 <= x < self.cols and 0 <= y < self.rows and self.cells[x][y] is None:
+        if 0 <= x and x < self.cols and 0 <= y and y < self.rows and self.cells[x][y] is None:
             self.cells[x][y] = particle
 
     def remove_particle(self, x, y):
@@ -19,8 +19,8 @@ class Simulation:
             self.cells[x][y] = None
 
     def update(self):
-        for row in range(self.rows):
-            for col in range(self.cols):
-                particle = self.cells[row][col]
+        for col in range(self.cols):
+            for row in range(self.rows):
+                particle = self.cells[col][row]
                 if particle is not None:
                     particle.update()
