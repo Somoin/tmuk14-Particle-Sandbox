@@ -6,18 +6,18 @@ class Grid:
         self.cols = window_width // cell_size
         self.cell_size = cell_size
         self.cells = []
-        for _ in range(self.rows):
-            row = []
-            for _ in range(self.cols):
-                row.append(None)
-            self.cells.append(row)
+        for _ in range(self.cols):
+            cols = []
+            for _ in range(self.rows):
+                cols.append(None)
+            self.cells.append(cols)
 
         
     def draw (self, window): 
-        for row in range(self.rows):
-            for col in range(self.cols):
+        for col in range(self.cols):
+            for row in range(self.rows):
                 color = 'gray'
-                if self.cells[row][col] is not None:
-                    particle = self.cells[row][col]
+                if self.cells[col][row] is not None:
+                    particle = self.cells[col][row]
                     color = particle.color
                 pg.draw.rect(window, color, (col * self.cell_size, row * self.cell_size, self.cell_size-1, self.cell_size-1))
