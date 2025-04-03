@@ -23,13 +23,13 @@ class WaterParticle(Particle):
 
     def update(self, grid, x, y):
 
-        if self.lifetime <= 0:
-            return (-1,-1) # Particle dies
+       # if self.lifetime <= 0:
+        #    return (-1,-1) # Particle dies
         
 
-        if self.grid.cells[x+1][y] is not None:
+        if (x != self.grid.cols-1) and self.grid.cells[x+1][y] is not None:
             self.direction = 0 #left
-        elif self.grid.cells[x-1][y] is not None:
+        elif (x != 0) and self.grid.cells[x-1][y] is not None:
             self.direction = 1 #right
         
         if rd.randint(0, 100) <= 5:
