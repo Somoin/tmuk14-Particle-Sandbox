@@ -184,8 +184,12 @@ def main():
                     for j in range(cursor_block_height):
                         mouseX = pg.mouse.get_pos()[0]//cell_size - cursor_block_height//2 + i
                         mouseY = pg.mouse.get_pos()[1]//cell_size - cursor_block_width//2 + j
-                        simulation.remove_particle(mouseX+i, mouseY+j)
-    
+                        simulation.remove_particle(mouseX, mouseY)
+                
+
+              
+
+        
 
         window.fill((0, 0, 0))
         sand_button.draw(window)
