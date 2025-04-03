@@ -3,8 +3,9 @@ from classes.particles.smokeParticle import SmokeParticle
 import random as rd
 
 colors = [
-    (242,125,12),
-    (240,127,19)
+    (255,232,8),
+    (255,154,0),
+    (255,206,0)
 ]
 
 
@@ -29,7 +30,7 @@ class FireParticle(Particle):
             Particle = self.grid.cells[x][y]
             if Particle.flammable == True:
                 
-                if rd.randint(0, 100) <= self.potency:
+                if rd.randint(0, 100) <= self.potency * Particle.flammability:
                     self.grid.cells[x][y] = FireParticle(self.grid, x, y, self.max_lifetime, self.potency) # Replace the particle with a fire particle
                 
             return (x,y)

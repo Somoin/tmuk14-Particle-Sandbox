@@ -2,7 +2,9 @@ from particle import Particle
 import random as rd
 
 colors = [
-    (92,79,79)
+    (62,45,45),
+    (101,87,87),
+    (120,110,115)
 ]
 
 
@@ -10,6 +12,7 @@ class GunpowderParticle(Particle):
     def __init__(self, grid, x, y):
         super().__init__("gunpowder", rd.choice(colors), grid, x ,y)
         self.flammable = True
+        self.flammability = 5 # Multiplier of flammability
     
     def update(self, grid, x, y):
         if y == self.grid.rows-1: # out of bounds bottom

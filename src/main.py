@@ -5,6 +5,7 @@ from simulation import Simulation
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
 
 from classes.particles.sandParticle import SandParticle
+from classes.particles.waterParticle import WaterParticle
 from classes.particles.concreteParticle import ConcreteParticle
 from classes.particles.smokeParticle import SmokeParticle
 from classes.particles.woodParticle import WoodParticle
@@ -23,9 +24,16 @@ class ParticleType(Enum):
     FIRE = 7
     GUNPOWDER = 8
     #default = AIR
-   
-pg.init()
 
+class CursorMode(Enum):
+    DEFAULT = 1
+    BLOCK = 2
+
+cursor_block_width = 5
+cursor_block_height = 5
+
+
+pg.init()
 
 
 cell_size = 8
@@ -49,11 +57,29 @@ wood_button = Button("src/images/woodbutton.png", 900, 550, "src/images/woodbutt
 gunpowder_button = Button("src/images/gunpowderbutton.png", 100, 650, "src/images/gunpowderbutton_hover.png")
 
 
+def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
+    if particle_type == ParticleType.SAND:
+        simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+    # elif particle_type == ParticleType.WATER:
+    #     print("Water Particle Added")
+            #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+    elif particle_type == ParticleType.CEMENT:
+        simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+    elif particle_type == ParticleType.SMOKE:
+        simulation.add_particle(SmokeParticle(simulation.grid, mouseX, mouseY, lifetime=10), mouseX, mouseY)
+    elif particle_type == ParticleType.WOOD:
+        simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+    elif particle_type == ParticleType.FIRE:
+        simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=100, potency=2), mouseX, mouseY)
+    elif particle_type == ParticleType.GUNPOWDER:
+        simulation.add_particle(GunpowderParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
 
 
 def main():
 
     particle_type = ParticleType.AIR
+    cursor_type = CursorMode.DEFAULT
+
     left_click_down = False
     right_click_down = False
 
@@ -116,6 +142,13 @@ def main():
                         particle_type = ParticleType.GUNPOWDER
                         print("Gunpowder Key Pressed")
              
+                # Changing cursor type
+                if event.key == pg.K_q:
+                    if cursor_type == CursorMode.DEFAULT:
+                        cursor_type = CursorMode.BLOCK
+                    else:
+                        cursor_type = CursorMode.DEFAULT
+                     
                 
         mouseX = pg.mouse.get_pos()[0]//cell_size
         mouseY = pg.mouse.get_pos()[1]//cell_size
@@ -124,9 +157,8 @@ def main():
         if left_click_down == True: # Registers when held down
             if particle_type == ParticleType.SAND:
                 simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            # elif particle_type == ParticleType.WATER:
-            #     print("Water Particle Added")
-                    #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+            elif particle_type == ParticleType.WATER:
+                simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.CEMENT:
                 simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.SMOKE:
@@ -137,8 +169,26 @@ def main():
                 simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=100, potency=2), mouseX, mouseY)
             elif particle_type == ParticleType.GUNPOWDER:
                 simulation.add_particle(GunpowderParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+            if cursor_type == CursorMode.DEFAULT:
+                particle_input(particle_type, cursor_type, simulation.grid, mouseX, mouseY)
+                
+
+            if cursor_type == CursorMode.BLOCK:
+                for i in range(cursor_block_width):
+                    for j in range(cursor_block_height):
+                        mouseX = pg.mouse.get_pos()[0]//cell_size - cursor_block_height//2 + i
+                        mouseY = pg.mouse.get_pos()[1]//cell_size - cursor_block_width//2 + j
+                        particle_input(particle_type, cursor_type, simulation.grid, mouseX, mouseY)
+            
         elif right_click_down == True: # Right mouse button
+            if cursor_type == CursorMode.DEFAULT:
                 simulation.remove_particle(mouseX, mouseY)
+            elif cursor_type == CursorMode.BLOCK: 
+                for i in range(cursor_block_width):
+                    for j in range(cursor_block_height):
+                        mouseX = pg.mouse.get_pos()[0]//cell_size - cursor_block_height//2 + i
+                        mouseY = pg.mouse.get_pos()[1]//cell_size - cursor_block_width//2 + j
+                        simulation.remove_particle(mouseX+i, mouseY+j)
                 
 
               

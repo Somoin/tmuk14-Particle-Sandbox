@@ -2,8 +2,9 @@ from particle import Particle
 import random as rd
 
 colors = [
-    (65,63,68),
-    (127,72,95)
+    #(150,146,146),
+    (111,111,111),
+    (55,54,54)
 ]
 
 
@@ -19,10 +20,14 @@ class SmokeParticle(Particle):
         if self.lifetime <= 0:
             return (-1,-1) # Particle dies
 
-        if y == 0: # out of bounds top
-            return (-1,-1) # Particle dies
+        if y == 0: # out of bounds bottom
+            return (-1,-1)
         elif self.grid.cells[x][y-1] is None: # move up
             return (x,y-1)   
+        elif (x != 0) and self.grid.cells[x-1][y-1] is None: # move up left
+            return (x-1,y-1)
+        elif (x != self.grid.cols-1) and self.grid.cells[x+1][y-1] is None: # move up right
+            return (x+1,y-1)
         else: # stay in place
             return (x,y)
         
