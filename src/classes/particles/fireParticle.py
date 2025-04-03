@@ -29,7 +29,7 @@ class FireParticle(Particle):
             Particle = self.grid.cells[x][y]
             if Particle.flammable == True:
                 
-                if rd.randint(0, 100) <= self.potency:
+                if rd.randint(0, 100) <= self.potency * Particle.flammability:
                     self.grid.cells[x][y] = FireParticle(self.grid, x, y, self.max_lifetime, self.potency) # Replace the particle with a fire particle
                 
             return (x,y)
