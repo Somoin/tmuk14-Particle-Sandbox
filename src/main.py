@@ -6,6 +6,9 @@ from classes.fps_counter import fps_counter # Import fps_counter class from clas
 
 from classes.particles.sandParticle import SandParticle
 from classes.particles.concreteParticle import ConcreteParticle
+from classes.particles.smokeParticle import SmokeParticle
+from classes.particles.woodParticle import WoodParticle
+from classes.particles.fireParticle import FireParticle
 
 from enum import Enum
 
@@ -14,6 +17,9 @@ class ParticleType(Enum):
     WATER = 2
     CEMENT = 3
     AIR = 4
+    SMOKE = 5
+    WOOD = 6 
+    FIRE = 7
     #default = AIR
    
 pg.init()
@@ -72,10 +78,33 @@ def main():
                     particle_type = ParticleType.CEMENT
 
                 print(particle_type.name)
+
+            # Debug Keyboard input
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_1:
+                    particle_type = ParticleType.SAND
+                    print("Sand Key Pressed")
+                if event.key == pg.K_2:
+                    particle_type = ParticleType.WATER
+                    print("Water Key Pressed")
+                if event.key == pg.K_3:
+                    particle_type = ParticleType.CEMENT
+                    print("Cement Key Pressed")
+                if event.key == pg.K_4:
+                    particle_type = ParticleType.SMOKE
+                    print("Smoke Key Pressed")
+                if event.key == pg.K_5:
+                        particle_type = ParticleType.WOOD
+                        print("Wood Key Pressed")
+                if event.key == pg.K_6:
+                        particle_type = ParticleType.FIRE
+                        print("Fire Key Pressed")
+             
                 
         mouseX = pg.mouse.get_pos()[0]//cell_size
         mouseY = pg.mouse.get_pos()[1]//cell_size
 
+        # Particle spawning / removing on mousedown
         if left_click_down == True: # Registers when held down
             if particle_type == ParticleType.SAND:
                 simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
@@ -84,7 +113,12 @@ def main():
                     #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
             elif particle_type == ParticleType.CEMENT:
                 simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            #    print("Cement Particle Added")
+            elif particle_type == ParticleType.SMOKE:
+                simulation.add_particle(SmokeParticle(simulation.grid, mouseX, mouseY, lifetime=10), mouseX, mouseY)
+            elif particle_type == ParticleType.WOOD:
+                simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+            elif particle_type == ParticleType.FIRE:
+                simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=20, potency=2), mouseX, mouseY)
         elif right_click_down == True: # Right mouse button
                 simulation.remove_particle(mouseX, mouseY)
                 

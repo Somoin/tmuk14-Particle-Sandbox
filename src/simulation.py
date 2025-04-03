@@ -19,6 +19,9 @@ class Simulation:
         if 0 <= x < self.cols and 0 <= y < self.rows:
             self.cells[x][y] = None
 
+    
+
+
     def update(self):
 
         for col in range(self.cols):
@@ -28,7 +31,11 @@ class Simulation:
                     continue
                 else:
                     pos = particle.update(self.grid, col, row)
-                    self.next_cells.cells[pos[0]][pos[1]] = particle
+                    
+                    if pos == (-1, -1): # Particle dies
+                        self.next_cells.cells[col][row] = None
+                    else:
+                        self.next_cells.cells[pos[0]][pos[1]] = particle
 
         for col in range(self.cols):
             for row in range(self.rows):
