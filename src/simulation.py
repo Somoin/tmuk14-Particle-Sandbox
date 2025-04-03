@@ -36,7 +36,10 @@ class Simulation:
                     if pos == (-1, -1): # Particle dies
                         self.next_cells.cells[col][row] = None
                     else:
-                        self.next_cells.cells[pos[0]][pos[1]] = particle
+                        if self.next_cells.cells[pos[0]][pos[1]] is None:
+                            self.next_cells.cells[pos[0]][pos[1]] = particle
+                        else:
+                            self.next_cells.cells[col][row] = particle # Keep the original position if the new one is occupied
 
         for col in range(self.cols):
             for row in range(self.rows):

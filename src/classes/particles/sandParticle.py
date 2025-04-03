@@ -1,5 +1,7 @@
 from particle import Particle
+from classes.particles.waterParticle import WaterParticle
 import random as rd
+
 
 colors = [
     (246,215,176),
@@ -18,7 +20,7 @@ class SandParticle(Particle):
         if y == self.grid.rows-1: # out of bounds bottom
             return (x,y)
         elif self.grid.cells[x][y+1] is None: # move down
-            return (x,y+1)   
+            return (x,y+1) 
         elif (x != 0) and self.grid.cells[x-1][y+1] is None: # move down left
             return (x-1,y+1)
         elif (x != self.grid.cols-1) and self.grid.cells[x+1][y+1] is None: # move down right
