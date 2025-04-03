@@ -13,6 +13,7 @@ colors = [
 class WaterParticle(Particle):
     def __init__(self, grid, x, y, lifetime):
         super().__init__("water", rd.choice(colors), grid, x ,y)
+        self.liquid = True
         self.direction = 0
         self.lifetime = lifetime
         if rd.choice([True, False]):
