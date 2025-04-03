@@ -61,11 +61,11 @@ def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
     if particle_type == ParticleType.SAND:
         simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
     elif particle_type == ParticleType.WATER:
-        simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+        simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY, lifetime=100), mouseX, mouseY)
     elif particle_type == ParticleType.CEMENT:
         simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
     elif particle_type == ParticleType.SMOKE:
-        simulation.add_particle(SmokeParticle(simulation.grid, mouseX, mouseY, lifetime=10), mouseX, mouseY)
+        simulation.add_particle(SmokeParticle(simulation.grid, mouseX, mouseY, lifetime=100), mouseX, mouseY)
     elif particle_type == ParticleType.WOOD:
         simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
     elif particle_type == ParticleType.FIRE:
@@ -153,21 +153,7 @@ def main():
         mouseY = pg.mouse.get_pos()[1]//cell_size
 
         # Particle spawning / removing on mousedown
-        if left_click_down == True: # Registers when held down
-            if particle_type == ParticleType.SAND:
-                simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            elif particle_type == ParticleType.WATER:
-                simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            elif particle_type == ParticleType.CEMENT:
-                simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            elif particle_type == ParticleType.SMOKE:
-                simulation.add_particle(SmokeParticle(simulation.grid, mouseX, mouseY, lifetime=10), mouseX, mouseY)
-            elif particle_type == ParticleType.WOOD:
-                simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            elif particle_type == ParticleType.FIRE:
-                simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=100, potency=2), mouseX, mouseY)
-            elif particle_type == ParticleType.GUNPOWDER:
-                simulation.add_particle(GunpowderParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
+        if left_click_down == True: # Registers when held down 
             if cursor_type == CursorMode.DEFAULT:
                 particle_input(particle_type, cursor_type, simulation.grid, mouseX, mouseY)
                 
