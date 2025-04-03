@@ -43,7 +43,10 @@ fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255)
 
 sand_button = Button("src/images/sandbutton.png", 100, 550, "src/images/sandbutton_hover.png")
 water_button = Button("src/images/waterbutton.png", 300, 550, "src/images/waterbutton_hover.png")
-cement_button = Button("src/images/cementbutton.png", 500, 550, "src/images/cementbutton_hover.png")
+concrete_button = Button("src/images/concretebutton.png", 500, 550, "src/images/concretebutton_hover.png")
+fire_button = Button("src/images/firebutton.png", 700, 550, "src/images/firebutton_hover.png")
+wood_button = Button("src/images/woodbutton.png", 900, 550, "src/images/woodbutton_hover.png")
+gunpowder_button = Button("src/images/gunpowderbutton.png", 100, 650, "src/images/gunpowderbutton_hover.png")
 
 
 
@@ -75,10 +78,18 @@ def main():
                 if water_button.check_press(pg.mouse.get_pos()):
                     print("Water Button Pressed")
                     particle_type = ParticleType.WATER
-                if cement_button.check_press(pg.mouse.get_pos()):
-                    print("Cement Button Pressed")
+                if concrete_button.check_press(pg.mouse.get_pos()):
+                    print("Concrete Button Pressed")
                     particle_type = ParticleType.CEMENT
-
+                if fire_button.check_press(pg.mouse.get_pos()):
+                    print("Fire Button Pressed")
+                    particle_type = ParticleType.FIRE
+                if wood_button.check_press(pg.mouse.get_pos()):
+                    print("Wood Button Pressed")
+                    particle_type = ParticleType.WOOD
+                if gunpowder_button.check_press(pg.mouse.get_pos()):
+                    print("Gunpowder Button Pressed")
+                    particle_type = ParticleType.GUNPOWDER
                 print(particle_type.name)
 
             # Debug Keyboard input
@@ -137,7 +148,10 @@ def main():
         window.fill((0, 0, 0))
         sand_button.draw(window)
         water_button.draw(window)
-        cement_button.draw(window)
+        concrete_button.draw(window)
+        fire_button.draw(window)
+        wood_button.draw(window)
+        gunpowder_button.draw(window)
 
         simulation.draw(window)
       
