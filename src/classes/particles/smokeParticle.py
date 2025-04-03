@@ -20,6 +20,9 @@ class SmokeParticle(Particle):
         if self.lifetime <= 0:
             return (-1,-1) # Particle dies
 
+        if rd.randint(0, 100) <= 5:
+            self.color = rd.choice(colors) # Randomly change color every frame
+            
         if y == 0: # out of bounds bottom
             return (-1,-1)
         elif self.grid.cells[x][y-1] is None: # move up

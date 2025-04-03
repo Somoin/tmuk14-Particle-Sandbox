@@ -29,6 +29,7 @@ class WaterParticle(Particle):
         
         if rd.randint(0, 100) <= 5:
             self.color = rd.choice(colors) # Randomly change color every frame
+
         if y == self.grid.rows-1: # out of bounds bottom
             return (x,y)
         elif self.grid.cells[x][y+1] is None: # move down
