@@ -157,9 +157,11 @@ def main():
         elif right_click_down == True: # Right mouse button
             if cursor_type == CursorMode.DEFAULT:
                 simulation.remove_particle(mouseX, mouseY)
-            elif cursor_type == CursorMode.BLOCK:
-                for i in range(10):
-                    for j in range(10):
+            elif cursor_type == CursorMode.BLOCK: 
+                for i in range(cursor_block_width):
+                    for j in range(cursor_block_height):
+                        mouseX = pg.mouse.get_pos()[0]//cell_size - cursor_block_height//2 + i
+                        mouseY = pg.mouse.get_pos()[1]//cell_size - cursor_block_width//2 + j
                         simulation.remove_particle(mouseX+i, mouseY+j)
                 
 
