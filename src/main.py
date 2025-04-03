@@ -36,7 +36,7 @@ cursor_block_height = 5
 pg.init()
 
 
-cell_size = 8
+cell_size = 6
 window_width = 1000
 window_height = 800
 FPS = 120
