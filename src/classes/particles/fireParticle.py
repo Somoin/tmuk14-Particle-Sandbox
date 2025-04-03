@@ -14,7 +14,7 @@ class FireParticle(Particle):
         self.max_lifetime = lifetime # The max lifetime of the fire particle in frames
         self.potency = potency # The chance of fire spreading to a flammable particle
         self.lifetime = self.max_lifetime 
-        self.smoke_lifetime = 20
+        self.smoke_lifetime = 10
         self.smoke_potency = 1  # The chance of creating smoke when burning a flammable particle
 
     def create_smoke(self, x, y):

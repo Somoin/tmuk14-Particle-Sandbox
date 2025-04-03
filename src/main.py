@@ -9,6 +9,7 @@ from classes.particles.concreteParticle import ConcreteParticle
 from classes.particles.smokeParticle import SmokeParticle
 from classes.particles.woodParticle import WoodParticle
 from classes.particles.fireParticle import FireParticle
+from classes.particles.gunpowderParticle import GunpowderParticle
 
 from enum import Enum
 
@@ -20,6 +21,7 @@ class ParticleType(Enum):
     SMOKE = 5
     WOOD = 6 
     FIRE = 7
+    GUNPOWDER = 8
     #default = AIR
    
 pg.init()
@@ -99,6 +101,9 @@ def main():
                 if event.key == pg.K_6:
                         particle_type = ParticleType.FIRE
                         print("Fire Key Pressed")
+                if event.key == pg.K_7:
+                        particle_type = ParticleType.GUNPOWDER
+                        print("Gunpowder Key Pressed")
              
                 
         mouseX = pg.mouse.get_pos()[0]//cell_size
@@ -119,6 +124,8 @@ def main():
                 simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.FIRE:
                 simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=100, potency=2), mouseX, mouseY)
+            elif particle_type == ParticleType.GUNPOWDER:
+                simulation.add_particle(GunpowderParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
         elif right_click_down == True: # Right mouse button
                 simulation.remove_particle(mouseX, mouseY)
                 
