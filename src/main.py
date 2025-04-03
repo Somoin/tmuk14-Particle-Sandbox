@@ -61,7 +61,7 @@ def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
     if particle_type == ParticleType.SAND:
         simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
     elif particle_type == ParticleType.WATER:
-        simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY, lifetime=100), mouseX, mouseY)
+        simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY, lifetime=250), mouseX, mouseY)
     elif particle_type == ParticleType.CEMENT:
         simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
     elif particle_type == ParticleType.SMOKE:

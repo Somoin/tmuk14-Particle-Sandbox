@@ -24,8 +24,8 @@ class WaterParticle(Particle):
 
     def update(self, grid, x, y):
 
-       # if self.lifetime <= 0:
-        #    return (-1,-1) # Particle dies
+        if self.lifetime <= 0:
+            return (-1,-1) # Particle dies
         
 
         if (x != self.grid.cols-1) and self.grid.cells[x+1][y] is not None:
