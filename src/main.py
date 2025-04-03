@@ -118,7 +118,7 @@ def main():
             elif particle_type == ParticleType.WOOD:
                 simulation.add_particle(WoodParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.FIRE:
-                simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=20, potency=2), mouseX, mouseY)
+                simulation.add_particle(FireParticle(simulation.grid, mouseX, mouseY, lifetime=100, potency=2), mouseX, mouseY)
         elif right_click_down == True: # Right mouse button
                 simulation.remove_particle(mouseX, mouseY)
                 
