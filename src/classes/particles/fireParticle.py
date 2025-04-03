@@ -43,6 +43,9 @@ class FireParticle(Particle):
         if self.lifetime <= 0: 
             return (-1,-1) # Particle dies
 
+        if rd.randint(0, 100) <= 5:
+            self.color = rd.choice(colors) # Randomly change color every frame
+            
         if x > 0:
             self.burn(x-1, y) # Check left
             if y > 0:
