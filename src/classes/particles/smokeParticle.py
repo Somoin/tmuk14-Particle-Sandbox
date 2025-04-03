@@ -2,8 +2,9 @@ from particle import Particle
 import random as rd
 
 colors = [
-    (65,63,68),
-    (127,72,95)
+    #(150,146,146),
+    (111,111,111),
+    (55,54,54)
 ]
 
 

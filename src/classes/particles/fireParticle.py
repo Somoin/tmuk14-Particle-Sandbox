@@ -3,8 +3,9 @@ from classes.particles.smokeParticle import SmokeParticle
 import random as rd
 
 colors = [
-    (242,125,12),
-    (240,127,19)
+    (255,232,8),
+    (255,154,0),
+    (255,206,0)
 ]
 
 

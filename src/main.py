@@ -5,6 +5,7 @@ from simulation import Simulation
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
 
 from classes.particles.sandParticle import SandParticle
+from classes.particles.waterParticle import WaterParticle
 from classes.particles.concreteParticle import ConcreteParticle
 from classes.particles.smokeParticle import SmokeParticle
 from classes.particles.woodParticle import WoodParticle
@@ -113,9 +114,8 @@ def main():
         if left_click_down == True: # Registers when held down
             if particle_type == ParticleType.SAND:
                 simulation.add_particle(SandParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
-            # elif particle_type == ParticleType.WATER:
-            #     print("Water Particle Added")
-                    #simulation.add_particle(WaterParticle(), pg.mouse.get_pos()[0]//cell_size, pg.mouse.get_pos()[1]//cell_size)
+            elif particle_type == ParticleType.WATER:
+                simulation.add_particle(WaterParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.CEMENT:
                 simulation.add_particle(ConcreteParticle(simulation.grid, mouseX, mouseY), mouseX, mouseY)
             elif particle_type == ParticleType.SMOKE:
