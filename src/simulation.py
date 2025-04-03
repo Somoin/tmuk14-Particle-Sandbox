@@ -1,5 +1,6 @@
 from classes.grid import Grid
 
+
 class Simulation:
     def __init__(self, window_width, window_height, cell_size):
         self.grid = Grid(window_width, window_height, cell_size)
@@ -31,7 +32,7 @@ class Simulation:
                     continue
                 else:
                     pos = particle.update(self.grid, col, row)
-                    
+
                     if pos == (-1, -1): # Particle dies
                         self.next_cells.cells[col][row] = None
                     else:
@@ -43,7 +44,6 @@ class Simulation:
                     self.remove_particle(col, row)
                 else:
                     self.add_particle(self.next_cells.cells[col][row], col, row)
+                self.next_cells.cells[col][row] = None # Reset the next cells grid
         
-        for col in range(self.cols):
-            for row in range(self.rows):
-                self.next_cells.cells[col][row] = None
+     
