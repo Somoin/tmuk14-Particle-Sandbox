@@ -24,6 +24,7 @@ class Simulation:
 
 
     def update(self):
+        update_array = [] # Create an array to store the particles that need to be updated
 
         for col in range(self.cols):
             for row in range(self.rows):
@@ -31,7 +32,12 @@ class Simulation:
                 if particle is None:
                     continue
                 else:
+                    if particle.static == True: # Only update non-static particles
+                        self.next_cells.cells[col][row] = particle # Keep the original position
+                        continue
+
                     pos = particle.update(self.grid, col, row)
+
 
                     if pos == (-1, -1): # Particle dies
                         self.next_cells.cells[col][row] = None
@@ -40,13 +46,18 @@ class Simulation:
                             self.next_cells.cells[pos[0]][pos[1]] = particle
                         else:
                             self.next_cells.cells[col][row] = particle # Keep the original position if the new one is occupied
+                    
+                
 
+        
         for col in range(self.cols):
             for row in range(self.rows):
                 if self.next_cells.cells[col][row] is None:
                     self.remove_particle(col, row)
                 else:
                     self.add_particle(self.next_cells.cells[col][row], col, row)
-                self.next_cells.cells[col][row] = None # Reset the next cells grid
+                    self.next_cells.cells[col][row] = None # Reset the next cells grid
+        
+        
         
      
