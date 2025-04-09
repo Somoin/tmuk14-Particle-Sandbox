@@ -3,7 +3,6 @@ from classes.button import Button
 from simulation import Simulation 
 
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
-
 from classes.particles.sandParticle import SandParticle
 from classes.particles.waterParticle import WaterParticle
 from classes.particles.concreteParticle import ConcreteParticle
@@ -14,6 +13,10 @@ from classes.particles.gunpowderParticle import GunpowderParticle
 from classes.text_display import TextDisplay
 
 from enum import Enum
+
+from configparser import ConfigParser
+
+
 
 class ParticleType(Enum):
     SAND = 1
@@ -37,10 +40,16 @@ cursor_block_height = 10
 pg.init()
 
 
-cell_size = 8
-window_width = 1000
-window_height = 800
-FPS = 120
+
+config_object = ConfigParser()
+
+
+config_object.read("src/config.ini")
+cell_size = config_object.getint("CONFIG", "cell_size")
+window_width = config_object.getint("CONFIG", "window_width")
+window_height = config_object.getint("CONFIG", "window_height")
+FPS = config_object.getint("CONFIG", "FPS")
+
 
 
 window = pg.display.set_mode((window_width, window_height))
@@ -90,6 +99,8 @@ def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
 
 
 def main():
+
+   
 
     particle_type = ParticleType.AIR
     cursor_type = CursorMode.DEFAULT
