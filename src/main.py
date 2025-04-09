@@ -11,6 +11,7 @@ from classes.particles.smokeParticle import SmokeParticle
 from classes.particles.woodParticle import WoodParticle
 from classes.particles.fireParticle import FireParticle
 from classes.particles.gunpowderParticle import GunpowderParticle
+from classes.text_display import TextDisplay
 
 from enum import Enum
 
@@ -23,6 +24,7 @@ class ParticleType(Enum):
     WOOD = 6 
     FIRE = 7
     GUNPOWDER = 8
+    GAS = 9
     #default = AIR
 
 class CursorMode(Enum):
@@ -32,38 +34,44 @@ class CursorMode(Enum):
 cursor_block_width = 10
 cursor_block_height = 10
 
-
 pg.init()
 
 
 cell_size = 8
-window_width = 1000
-window_height = 800
+window_width = 1280
+window_height = 720
+
 FPS = 120
+
 
 window = pg.display.set_mode((window_width, window_height))
 pg.display.set_caption("Particle Sandbox")
 
 clock = pg.time.Clock()
 
-simulation = Simulation(window_width, window_height-300, cell_size)
+simulation_width = window_width
+simulation_height = round(window_height - (window_height*0.375))
+simulation = Simulation(simulation_width, simulation_height, cell_size)
 fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255), (60, 25)) # fps_counter(window, font, clock, color, pos)
 
-sand_button = Button("src/images/sandbutton.png", 100, 550, "src/images/sandbutton_hover.png")
-water_button = Button("src/images/waterbutton.png", 300, 550, "src/images/waterbutton_hover.png")
-concrete_button = Button("src/images/concretebutton.png", 500, 550, "src/images/concretebutton_hover.png")
-fire_button = Button("src/images/firebutton.png", 700, 550, "src/images/firebutton_hover.png")
-wood_button = Button("src/images/woodbutton.png", 900, 550, "src/images/woodbutton_hover.png")
-gunpowder_button = Button("src/images/gunpowderbutton.png", 100, 650, "src/images/gunpowderbutton_hover.png")
+text_padding_x = 350
+text_padding_y = 710 
+text_display = TextDisplay(window, "", window_width - text_padding_x, window_height - text_padding_y, (255, 255, 255))
 
 
-text_pos_x = 650
-text_pos_y = 15
-def display_current_particle(display_text, pos_x, pos_y):
-    text = pg.font.Font(None, 30).render("Current Particle: " + display_text, True, (255, 255, 255))
-    text_rect = text.get_rect(topleft=(pos_x, pos_y))
-    window.blit(text, text_rect)
 
+button_width = window_width*0.175
+button_height = window_height*0.1125
+button_padding_x = 12.3
+button_padding_y_r1 = 1.45 # 1.45 for the first row of buttons
+button_padding_y_r2 = 1.2 # 1.2 for the second row of buttons
+
+sand_button = Button("src/images/sandbutton.png", window_width // button_padding_x, window_height // button_padding_y_r1, "src/images/sandbutton_hover.png", button_width, button_height)
+water_button = Button("src/images/waterbutton.png", window_width // button_padding_x * 3.45, window_height // button_padding_y_r1, "src/images/waterbutton_hover.png", button_width, button_height)
+concrete_button = Button("src/images/concretebutton.png", window_width // button_padding_x * 5.9, window_height // button_padding_y_r1, "src/images/concretebutton_hover.png", button_width, button_height)
+fire_button = Button("src/images/firebutton.png", window_width // button_padding_x * 8.35, window_height // button_padding_y_r1, "src/images/firebutton_hover.png", button_width, button_height)
+wood_button = Button("src/images/woodbutton.png", window_width // button_padding_x * 10.8, window_height // button_padding_y_r1,"src/images/woodbutton_hover.png", button_width, button_height)
+gunpowder_button = Button("src/images/gunpowderbutton.png", window_width // button_padding_x, window_height // button_padding_y_r2, "src/images/gunpowderbutton_hover.png", button_width, button_height)
 
 def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
     if particle_type == ParticleType.SAND:
@@ -104,6 +112,7 @@ def main():
             elif event.type == pg.MOUSEBUTTONUP and event.button == 3: # Right mouse button released
                 right_click_down = False
 
+            
             if event.type == pg.MOUSEBUTTONDOWN: #Registers when clicked once
                 if sand_button.check_press(pg.mouse.get_pos()):
                     print("Sand Button Pressed")
@@ -123,9 +132,8 @@ def main():
                 if gunpowder_button.check_press(pg.mouse.get_pos()):
                     print("Gunpowder Button Pressed")
                     particle_type = ParticleType.GUNPOWDER
-                print(particle_type.name)
-
-
+                
+            #print(particle_type.name)
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_1:
@@ -149,8 +157,12 @@ def main():
                 if event.key == pg.K_7:
                         particle_type = ParticleType.GUNPOWDER
                         print("Gunpowder Key Pressed")
-
-                display_current_particle(particle_type.name, text_pos_x, text_pos_y)
+                if event.key == pg.K_8:
+                        particle_type = ParticleType.GAS
+                        print("Air Key Pressed")
+                if event.key == pg.K_c:
+                    simulation.clear()
+                        
              
                 # Changing cursor type
                 if event.key == pg.K_q:
@@ -185,6 +197,7 @@ def main():
                         mouseX = pg.mouse.get_pos()[0]//cell_size - cursor_block_height//2 + i
                         mouseY = pg.mouse.get_pos()[1]//cell_size - cursor_block_width//2 + j
                         simulation.remove_particle(mouseX, mouseY)
+
                 
 
               
@@ -200,15 +213,14 @@ def main():
         gunpowder_button.draw(window)
 
         simulation.draw(window)
-      
-        
         simulation.update()
-        
 
+        text_display.text = "CURRENT PARTICLE: " + particle_type.name
+        text_display.draw()
+        
         fps_counter.update() # Update the fps_counter
         fps_counter.render() # Render the fps_counter
 
-        display_current_particle(particle_type.name, text_pos_x, text_pos_y)
         pg.display.update()
         clock.tick(FPS) # clock ticks at the specified FPS
 

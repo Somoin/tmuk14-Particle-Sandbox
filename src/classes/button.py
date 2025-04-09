@@ -2,10 +2,12 @@ import pygame as pg
 
 
 class Button:
-    def __init__(self, image_file, pos_x, pos_y, image_file_hover):
+    def __init__(self, image_file, pos_x, pos_y, image_file_hover, b_width, b_height):
         self.image_default = pg.image.load(image_file).convert_alpha() #The original image
         self.image_hover = pg.image.load(image_file_hover).convert_alpha() #The image when hovered
         self.rect = self.image_default.get_rect(center = (pos_x, pos_y))
+        self.rect.width = b_width
+        self.rect.height = b_height
 
     def check_hover(self, mouse_pos):
         if self.rect.collidepoint(mouse_pos):
@@ -39,3 +41,4 @@ class Button:
             return True
         else:
             return False
+        
