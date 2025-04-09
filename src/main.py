@@ -39,16 +39,31 @@ cursor_block_height = 10
 
 pg.init()
 
-
-
 config_object = ConfigParser()
 
 
-config_object.read("src/config.ini")
-cell_size = config_object.getint("CONFIG", "cell_size")
-window_width = config_object.getint("CONFIG", "window_width")
-window_height = config_object.getint("CONFIG", "window_height")
-FPS = config_object.getint("CONFIG", "FPS")
+
+if len(config_object.read("src/config.ini")) > 0:
+    cell_size = config_object.getint("CONFIG", "cell_size")
+    window_width = config_object.getint("CONFIG", "window_width")
+    window_height = config_object.getint("CONFIG", "window_height")
+    FPS = config_object.getint("CONFIG", "FPS")
+else:
+    config_object["CONFIG"] = {
+        "cell_size": 8,
+        "window_width": 1280,
+        "window_height": 800,
+        "FPS": 120
+    }
+
+    with open("src/config.ini", "w") as config_file:
+        config_object.write(config_file)
+    
+    config_object.read("src/config.ini")
+    cell_size = config_object.getint("CONFIG", "cell_size")
+    window_width = config_object.getint("CONFIG", "window_width")
+    window_height = config_object.getint("CONFIG", "window_height")
+    FPS = config_object.getint("CONFIG", "FPS")
 
 
 
