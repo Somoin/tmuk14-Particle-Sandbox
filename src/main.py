@@ -83,6 +83,7 @@ text_display = TextDisplay(window, "", window_width - text_padding_x, window_hei
 
 
 
+# Random values to match current window size (1280x720)
 button_width = window_width*0.175
 button_height = window_height*0.1125
 button_padding_x = 12.3
@@ -95,6 +96,7 @@ concrete_button = Button("src/images/concretebutton.png", window_width // button
 fire_button = Button("src/images/firebutton.png", window_width // button_padding_x * 8.35, window_height // button_padding_y_r1, "src/images/firebutton_hover.png", button_width, button_height)
 wood_button = Button("src/images/woodbutton.png", window_width // button_padding_x * 10.8, window_height // button_padding_y_r1,"src/images/woodbutton_hover.png", button_width, button_height)
 gunpowder_button = Button("src/images/gunpowderbutton.png", window_width // button_padding_x, window_height // button_padding_y_r2, "src/images/gunpowderbutton_hover.png", button_width, button_height)
+buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button]
 
 def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
     if particle_type == ParticleType.SAND:
@@ -230,12 +232,9 @@ def main():
         
 
         window.fill((0, 0, 0))
-        sand_button.draw(window)
-        water_button.draw(window)
-        concrete_button.draw(window)
-        fire_button.draw(window)
-        wood_button.draw(window)
-        gunpowder_button.draw(window)
+        for button in buttons:
+            button.draw(window)
+
 
         simulation.draw(window)
         simulation.update()
