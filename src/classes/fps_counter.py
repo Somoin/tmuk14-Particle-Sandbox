@@ -1,5 +1,8 @@
-class fps_counter:
+from text_display import TextDisplay
+
+class fps_counter(TextDisplay):
     def __init__(self, window, font, clock, color, pos):
+        super().__init__(window, "FPS: 0", pos, color) # Initialize the parent class with default text
         self.window = window
         self.font = font
         self.clock = clock

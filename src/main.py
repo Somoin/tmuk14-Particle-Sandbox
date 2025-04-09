@@ -79,24 +79,24 @@ fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255)
 
 text_padding_x = 350
 text_padding_y = 710 
-text_display = TextDisplay(window, "", window_width - text_padding_x, window_height - text_padding_y, (255, 255, 255))
+text_display = TextDisplay(window, "", [window_width - text_padding_x, window_height - text_padding_y], (255, 255, 255))
 
 
-
-# Random values to match current window size (1280x720)
+# Values to match current window size (1280x720)
 button_width = window_width*0.175
 button_height = window_height*0.1125
 button_padding_x = 12.3
 button_padding_y_r1 = 1.45 # 1.45 for the first row of buttons
 button_padding_y_r2 = 1.2 # 1.2 for the second row of buttons
 
-sand_button = Button("src/images/sandbutton.png", window_width // button_padding_x, window_height // button_padding_y_r1, "src/images/sandbutton_hover.png", button_width, button_height)
-water_button = Button("src/images/waterbutton.png", window_width // button_padding_x * 3.45, window_height // button_padding_y_r1, "src/images/waterbutton_hover.png", button_width, button_height)
-concrete_button = Button("src/images/concretebutton.png", window_width // button_padding_x * 5.9, window_height // button_padding_y_r1, "src/images/concretebutton_hover.png", button_width, button_height)
-fire_button = Button("src/images/firebutton.png", window_width // button_padding_x * 8.35, window_height // button_padding_y_r1, "src/images/firebutton_hover.png", button_width, button_height)
-wood_button = Button("src/images/woodbutton.png", window_width // button_padding_x * 10.8, window_height // button_padding_y_r1,"src/images/woodbutton_hover.png", button_width, button_height)
-gunpowder_button = Button("src/images/gunpowderbutton.png", window_width // button_padding_x, window_height // button_padding_y_r2, "src/images/gunpowderbutton_hover.png", button_width, button_height)
+sand_button = Button("src/images/sandbutton.png", [window_width // button_padding_x, window_height // button_padding_y_r1], "src/images/sandbutton_hover.png", button_width, button_height)
+water_button = Button("src/images/waterbutton.png", [window_width // button_padding_x * 3.45, window_height // button_padding_y_r1], "src/images/waterbutton_hover.png", button_width, button_height)
+concrete_button = Button("src/images/concretebutton.png", [window_width // button_padding_x * 5.9, window_height // button_padding_y_r1], "src/images/concretebutton_hover.png", button_width, button_height)
+fire_button = Button("src/images/firebutton.png", [window_width // button_padding_x * 8.35, window_height // button_padding_y_r1], "src/images/firebutton_hover.png", button_width, button_height)
+wood_button = Button("src/images/woodbutton.png", [window_width // button_padding_x * 10.8, window_height // button_padding_y_r1],"src/images/woodbutton_hover.png", button_width, button_height)
+gunpowder_button = Button("src/images/gunpowderbutton.png", [window_width // button_padding_x, window_height // button_padding_y_r2], "src/images/gunpowderbutton_hover.png", button_width, button_height)
 buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button]
+
 
 def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
     if particle_type == ParticleType.SAND:
@@ -116,8 +116,6 @@ def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
 
 
 def main():
-
-   
 
     particle_type = ParticleType.AIR
     cursor_type = CursorMode.DEFAULT
@@ -141,22 +139,22 @@ def main():
 
             
             if event.type == pg.MOUSEBUTTONDOWN: #Registers when clicked once
-                if sand_button.check_press(pg.mouse.get_pos()):
+                if sand_button.update(pg.mouse.get_pos()):
                     print("Sand Button Pressed")
                     particle_type = ParticleType.SAND
-                if water_button.check_press(pg.mouse.get_pos()):
+                if water_button.update(pg.mouse.get_pos()):
                     print("Water Button Pressed")
                     particle_type = ParticleType.WATER
-                if concrete_button.check_press(pg.mouse.get_pos()):
+                if concrete_button.update(pg.mouse.get_pos()):
                     print("Concrete Button Pressed")
                     particle_type = ParticleType.CONCRETE
-                if fire_button.check_press(pg.mouse.get_pos()):
+                if fire_button.update(pg.mouse.get_pos()):
                     print("Fire Button Pressed")
                     particle_type = ParticleType.FIRE
-                if wood_button.check_press(pg.mouse.get_pos()):
+                if wood_button.update(pg.mouse.get_pos()):
                     print("Wood Button Pressed")
                     particle_type = ParticleType.WOOD
-                if gunpowder_button.check_press(pg.mouse.get_pos()):
+                if gunpowder_button.update(pg.mouse.get_pos()):
                     print("Gunpowder Button Pressed")
                     particle_type = ParticleType.GUNPOWDER
                 
@@ -233,14 +231,14 @@ def main():
 
         window.fill((0, 0, 0))
         for button in buttons:
-            button.draw(window)
+            button.render(window)
 
 
         simulation.draw(window)
         simulation.update()
 
         text_display.text = "CURRENT PARTICLE: " + particle_type.name
-        text_display.draw()
+        text_display.render()
         
         fps_counter.update() # Update the fps_counter
         fps_counter.render() # Render the fps_counter
