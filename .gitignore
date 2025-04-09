@@ -1,4 +1,6 @@
 #Ignore _pychache_ folder
 **/__pycache__/
 
+#Ignore the config file
+src/config.ini
 
