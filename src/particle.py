@@ -12,6 +12,7 @@ class Particle:
         self.liquid = False
         self.static = False
 
+    # Utilizes polymorphism to allow for different particle types to have different update methods
     def update(self, grid, x, y):
        return (x, y)
     
