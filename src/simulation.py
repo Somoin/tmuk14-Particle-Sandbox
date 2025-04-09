@@ -19,9 +19,11 @@ class Simulation:
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
             self.cells[x][y] = None
-
     
-
+    def clear(self):
+        for col in range(self.cols):
+            for row in range(self.rows):
+                self.cells[col][row] = None
 
     def update(self):
         update_array = [] # Create an array to store the particles that need to be updated
