@@ -38,9 +38,8 @@ pg.init()
 
 
 cell_size = 8
-window_width = 1280
-window_height = 720
-
+window_width = 1000
+window_height = 800
 FPS = 120
 
 
