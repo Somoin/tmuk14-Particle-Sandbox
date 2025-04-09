@@ -20,4 +20,4 @@ class Grid:
                 if self.cells[col][row] is not None:
                     particle = self.cells[col][row]
                     color = particle.color
-                pg.draw.rect(window, color, (col * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size))
+                    pg.draw.rect(window, color, (col * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size))
