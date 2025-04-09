@@ -37,7 +37,7 @@ cursor_block_height = 10
 pg.init()
 
 
-cell_size = 8.5959 #ERROR TO REVERT COMMIT 
+cell_size = 8
 window_width = 1000
 window_height = 800
 FPS = 120
