@@ -36,8 +36,17 @@ class WaterParticle(Particle):
         if rd.randint(0, 100) <= 5:
             self.color = rd.choice(colors) # Randomly change color every frame
 
+        
+        if self.grid.cells[x][y-1] is not None and y != 0:
+            if (self.grid.cells[x][y-1].name == "sand" or self.grid.cells[x][y-1].name == "gunpowder"):
+                tmp = self.grid.cells[x][y-1]
+                self.grid.cells[x][y-1] = WaterParticle(self.grid, x, y-1, self.lifetime)
+                self.grid.cells[x][y] = tmp
+                return (x,y-1)
+        
         if y == self.grid.rows-1: # out of bounds bottom
             return (x,y)
+        
         elif self.grid.cells[x][y+1] is None: # move down
             return (x,y+1)   
         elif (x != 0) and self.grid.cells[x-1][y+1] is None: # move down left
