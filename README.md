@@ -24,7 +24,7 @@ Basic Examples:
 The language used is Python using the [Pygame](https://www.pygame.org/news) library. 
 
 # How to run
-Ensure Pygame is installed and run src/main.py
+Ensure Pygame is installed and run main.py from inside the src directory
 
 # Kanban Board
 https://github.com/users/Somoin/projects/1/views/1
