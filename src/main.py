@@ -156,7 +156,7 @@ def main():
                     particle_type = ParticleType.WOOD
                 if gunpowder_button.check_press(pg.mouse.get_pos()):
                     print("Gunpowder Button Pressed")
-                    particle_type = ParticleType.GUNPOWDER                
+                    particle_type = ParticleType.GUNPOWDER
 
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
@@ -239,6 +239,6 @@ def main():
 
 
         pg.display.flip()
-        
+
 if __name__ == "__main__":
     main()

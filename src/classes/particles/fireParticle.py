@@ -27,6 +27,8 @@ class FireParticle(Particle):
         self.create_smoke(x, y) # Create smoke particle above the fire particle
         curr_lifetime = self.lifetime
         if self.grid.cells[x][y] is not None: # If the cell to the specified direction is flammable burn it and replace it
+            if self.grid.cells[x][y].name == "water":
+                self.lifetime = 0 # Water extinguishes fire
             Particle = self.grid.cells[x][y]
             if Particle.flammable == True:
                 if rd.randint(0, 100) <= self.potency * Particle.flammability:
