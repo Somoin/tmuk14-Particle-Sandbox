@@ -1,5 +1,5 @@
 import pygame as pg
-from UI import UIElement
+from classes.UI import UIElement
 class Button(UIElement):
     def __init__(self, image_file, pos, image_file_hover, b_width, b_height):
         self.image_default = pg.image.load(image_file).convert_alpha() #The original image
