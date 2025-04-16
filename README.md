@@ -28,7 +28,16 @@ Ensure Pygame is installed and run main.py from inside the src directory.
 
 # Testing
 To run the unit test you need to install [pytest](https://docs.pytest.org/en/stable/getting-started.html). <br/>
-When inside the src directory write: python -m pytest unit_test.py 
+When inside the src directory write into the terminal: python -m pytest unit_test.py 
+
+For code linting [Pylint](https://pypi.org/project/pylint/) is used. <br/>
+To run go into the src directory and write: python -m pylint FILENAME.py
+
+# Generate code coverage
+To generate code coverage you need to install [Coverage.py](https://coverage.readthedocs.io/en/7.8.0/). <br/>
+When inside the src directory write into the terminal: python -m coverage run main.py <br/>
+After you run the program and test every feature you can close it and write into the terminal: python -m coverage report <br/>
+You can also create an HTML file with the command: python -m coverage html
 
 # Kanban Board
 https://github.com/users/Somoin/projects/1/views/1
