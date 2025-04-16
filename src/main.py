@@ -78,24 +78,18 @@ simulation = Simulation(simulation_width, simulation_height, cell_size)
 fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255), (60, 25)) # fps_counter(window, font, clock, color, pos)
 
 text_padding_x = 350
-text_padding_y = 710 
+text_padding_y = 785 
 text_display = TextDisplay(window, "", window_width - text_padding_x, window_height - text_padding_y, (255, 255, 255))
 
-
-
-# Random values to match current window size (1280x720)
 button_width = window_width*0.175
 button_height = window_height*0.1125
-button_padding_x = 12.3
-button_padding_y_r1 = 1.45 # 1.45 for the first row of buttons
-button_padding_y_r2 = 1.2 # 1.2 for the second row of buttons
 
-sand_button = Button("src/images/sandbutton.png", window_width // button_padding_x, window_height // button_padding_y_r1, "src/images/sandbutton_hover.png", button_width, button_height)
-water_button = Button("src/images/waterbutton.png", window_width // button_padding_x * 3.45, window_height // button_padding_y_r1, "src/images/waterbutton_hover.png", button_width, button_height)
-concrete_button = Button("src/images/concretebutton.png", window_width // button_padding_x * 5.9, window_height // button_padding_y_r1, "src/images/concretebutton_hover.png", button_width, button_height)
-fire_button = Button("src/images/firebutton.png", window_width // button_padding_x * 8.35, window_height // button_padding_y_r1, "src/images/firebutton_hover.png", button_width, button_height)
-wood_button = Button("src/images/woodbutton.png", window_width // button_padding_x * 10.8, window_height // button_padding_y_r1,"src/images/woodbutton_hover.png", button_width, button_height)
-gunpowder_button = Button("src/images/gunpowderbutton.png", window_width // button_padding_x, window_height // button_padding_y_r2, "src/images/gunpowderbutton_hover.png", button_width, button_height)
+sand_button = Button("src/images/sandbutton.png", 120, 550, "src/images/sandbutton_hover.png", button_width, button_height)
+water_button = Button("src/images/waterbutton.png", 370, 550, "src/images/waterbutton_hover.png", button_width, button_height)
+concrete_button = Button("src/images/concretebutton.png", 620, 550, "src/images/concretebutton_hover.png", button_width, button_height)
+fire_button = Button("src/images/firebutton.png", 870, 550, "src/images/firebutton_hover.png", button_width, button_height)
+wood_button = Button("src/images/woodbutton.png", 1120, 550,"src/images/woodbutton_hover.png", button_width, button_height)
+gunpowder_button = Button("src/images/gunpowderbutton.png", 120, 675, "src/images/gunpowderbutton_hover.png", button_width, button_height)
 buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button]
 
 def particle_input(particle_type, cursor_type, grid, mouseX, mouseY):
