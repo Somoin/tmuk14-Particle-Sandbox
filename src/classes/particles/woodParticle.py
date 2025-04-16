@@ -16,6 +16,6 @@ class WoodParticle(Particle):
         
 
 
-    def update(self, grid, x, y):
-            return (x,y) # Always stay in place
+    #def update(self, grid, x, y): # Not needed for static particles
+    #        return (x,y) # Always stay in place
         

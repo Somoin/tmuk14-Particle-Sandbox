@@ -14,5 +14,5 @@ class Particle:
 
     # Utilizes polymorphism to allow for different particle types to have different update methods
     def update(self, grid, x, y):
-       return (x, y)
+        pass
     

@@ -15,6 +15,6 @@ class ConcreteParticle(Particle):
         super().__init__("concrete", rd.choice(colors), grid, x ,y)
         self.static = True
     
-    def update(self, grid, x, y):
-            return (x,y) # Always stay in place
+    #def update(self, grid, x, y): Not needed for static particles
+    #        return (x,y) # Always stay in place
         
