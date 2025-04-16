@@ -1,4 +1,5 @@
 # tmuk14-Particle-Sandbox
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)<br/>
 A particle sandbox for simulating simple particles such as sand, water and other elements. Made with Pygame
 
 - Simon Lorentzon    [Somoin](https://github.com/Somoin)
