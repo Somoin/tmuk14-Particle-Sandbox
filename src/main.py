@@ -43,7 +43,7 @@ config_object = ConfigParser()
 
 
 
-if len(config_object.read("src/config.ini")) > 0:
+if len(config_object.read("config.ini")) > 0:
     cell_size = config_object.getint("CONFIG", "cell_size")
     window_width = config_object.getint("CONFIG", "window_width")
     window_height = config_object.getint("CONFIG", "window_height")
@@ -56,10 +56,10 @@ else:
         "FPS": 120
     }
 
-    with open("src/config.ini", "w") as config_file:
+    with open("config.ini", "w") as config_file:
         config_object.write(config_file)
     
-    config_object.read("src/config.ini")
+    config_object.read("config.ini")
     cell_size = config_object.getint("CONFIG", "cell_size")
     window_width = config_object.getint("CONFIG", "window_width")
     window_height = config_object.getint("CONFIG", "window_height")
