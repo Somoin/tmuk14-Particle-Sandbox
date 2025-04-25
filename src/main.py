@@ -17,7 +17,7 @@ from classes.text_display import TextDisplay
 
 
 
-class ParticleType(Enum):
+class ParticleType(Enum): # Enum for particle types
     SAND = 1
     WATER = 2
     CONCRETE = 3
@@ -29,11 +29,11 @@ class ParticleType(Enum):
     GAS = 9
     #default = AIR
 
-class CursorMode(Enum):
+class CursorMode(Enum): # Enum for cursor modes
     DEFAULT = 1
     BLOCK = 2
 
-CURSOR_BLOCK_WIDTH = 10
+CURSOR_BLOCK_WIDTH = 10 # Width and height of the cursor block
 CURSOR_BLOCK_HEIGHT = 10
 
 pg.init()
@@ -42,20 +42,20 @@ config_object = ConfigParser()
 
 
 
-if len(config_object.read("config.ini")) > 0:
+if len(config_object.read("config.ini")) > 0: # Reads the config file if it exists
     cell_size = config_object.getint("CONFIG", "cell_size")
     window_width = config_object.getint("CONFIG", "window_width")
     window_height = config_object.getint("CONFIG", "window_height")
     FPS = config_object.getint("CONFIG", "FPS")
-else:
-    config_object["CONFIG"] = {
+else: # Creates a new config file if it doesn't exist
+    config_object["CONFIG"] = { 
         "cell_size": 8,
         "window_width": 1280,
         "window_height": 800,
         "FPS": 120
     }
 
-    with open("config.ini", "w") as config_file:
+    with open("config.ini", "w") as config_file: # Writes the config file
         config_object.write(config_file)
 
     config_object.read("config.ini")
@@ -66,17 +66,17 @@ else:
 
 
 
-window = pg.display.set_mode((window_width, window_height))
+window = pg.display.set_mode((window_width, window_height)) # Main window
 pg.display.set_caption("Particle Sandbox")
 
 clock = pg.time.Clock()
 
-simulation_width = window_width
+simulation_width = window_width # Width and height for the simulation
 simulation_height = round(window_height - (window_height*0.375))
 simulation = Simulation(simulation_width, simulation_height, cell_size)
 fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255), (60, 25))
 
-TEXT_PADDING_X = 350
+TEXT_PADDING_X = 350 # Create objects
 TEXT_PADDING_Y = 785
 text_display = TextDisplay(window, "", window_width - TEXT_PADDING_X, window_height - TEXT_PADDING_Y, (255, 255, 255))
 
@@ -115,7 +115,7 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         simulation.add_particle(particle, mouse_x, mouse_y)
 
 
-def main():
+def main(): 
 
     particle_type = ParticleType.AIR
     cursor_type = CursorMode.DEFAULT
@@ -123,8 +123,8 @@ def main():
     left_click_down = False
     right_click_down = False
 
-    while True:
-        for event in pg.event.get():
+    while True: # Game loop
+        for event in pg.event.get(): # Event handling
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
@@ -221,6 +221,7 @@ def main():
                         mouse_y = pg.mouse.get_pos()[1]//cell_size - CURSOR_BLOCK_HEIGHT//2 + j
                         simulation.remove_particle(mouse_x, mouse_y)
 
+        #Draw and update
         window.fill((0, 0, 0))
         for button in buttons:
             button.draw(window)
