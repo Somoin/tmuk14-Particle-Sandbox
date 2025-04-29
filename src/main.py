@@ -108,8 +108,17 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         particle = WoodParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.FIRE:
+        print(mouse_x, mouse_y, simulation.grid.cols, simulation.grid.rows)
         particle = FireParticle(simulation.grid, mouse_x, mouse_y, lifetime=100, potency=2)
+        if mouse_x < 0 or mouse_x > simulation.grid.cols-1 or mouse_y < 0 or mouse_y > simulation.grid.rows-1:
+            return
+
+        if simulation.grid.cells[mouse_x][mouse_y] is not None:
+            if simulation.grid.cells[mouse_x][mouse_y].flammable == True:
+                simulation.remove_particle(mouse_x, mouse_y)
+        
         simulation.add_particle(particle, mouse_x, mouse_y)
+
     elif particle_type == ParticleType.GUNPOWDER:
         particle = GunpowderParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
