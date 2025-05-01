@@ -39,7 +39,7 @@ To run go into the src directory and write: python -m pylint FILENAME.py
 
 # Generate code coverage
 To generate code coverage you need to install [Coverage.py](https://coverage.readthedocs.io/en/7.8.0/). <br/>
-When inside the src directory write into the terminal: python -m coverage run main.py <br/>
+When inside the src directory write into the terminal: python -m coverage run unit_test.py <br/>
 After you run the program and test every feature you can close it and write into the terminal: python -m coverage report <br/>
 You can also create an HTML file with the command: python -m coverage html
 
