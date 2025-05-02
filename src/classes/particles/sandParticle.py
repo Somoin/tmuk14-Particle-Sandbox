@@ -53,7 +53,7 @@ def moveDownLeft(grid, x, y, gravity):
     startPos = (x,y)
     currPos = startPos
     for i in range(gravity):
-        if x-i-1 == 0 or y+i+1 == grid.rows-1:
+        if x-i == 0 or y+i+1 == grid.rows-1:
             return currPos
         if (x != 0) and grid.cells[x-1-i][y+1+i] is None: # move down left
             currPos =  (x-1-i,y+1+i)
@@ -67,7 +67,7 @@ def moveDownRight(grid, x, y, gravity):
     startPos = (x,y)
     currPos = startPos
     for i in range(gravity):
-        if x+i+1 == grid.cols-1 or y+i+1 == grid.rows-1:
+        if x+i == grid.cols-1 or y+i+1 == grid.rows-1:
             return currPos
         if (x != grid.cols-1) and grid.cells[x+1+i][y+1+i] is None: # move down right
             return (x+1+i,y+1+i)
