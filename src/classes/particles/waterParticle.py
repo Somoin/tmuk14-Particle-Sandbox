@@ -108,7 +108,7 @@ def moveDown(grid, x, y, gravity):
     startPos = (x,y)
     currPos = startPos
     for i in range(gravity):
-        if y+i+1 == grid.rows-1:
+        if y+i+1 == grid.rows:
             return currPos
         if grid.cells[x][y+1+i] is None: # move down
             currPos = (x,y+1+i) 
