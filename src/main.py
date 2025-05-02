@@ -96,7 +96,7 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         particle = SandParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.WATER:
-        particle = WaterParticle(simulation.grid, mouse_x, mouse_y, lifetime=250)
+        particle = WaterParticle(simulation.grid, mouse_x, mouse_y, lifetime=100)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.CONCRETE:
         particle = ConcreteParticle(simulation.grid, mouse_x, mouse_y)
@@ -108,7 +108,6 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         particle = WoodParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.FIRE:
-        print(mouse_x, mouse_y, simulation.grid.cols, simulation.grid.rows)
         particle = FireParticle(simulation.grid, mouse_x, mouse_y, lifetime=100, potency=2)
         if mouse_x < 0 or mouse_x > simulation.grid.cols-1 or mouse_y < 0 or mouse_y > simulation.grid.rows-1:
             return

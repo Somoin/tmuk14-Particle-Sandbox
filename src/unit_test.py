@@ -43,7 +43,7 @@ def particle_function(start_grid, particle, x, y, expected_pos):
         return False
 
 def test_particle():
-    assert particle_function(start_grid, start_particle, 0, 0, (0, 1)) == True # Sand has fallen one cell down
+    assert particle_function(start_grid, start_particle, grid_bounds[0], grid_bounds[1]-1, (grid_bounds[0], grid_bounds[1])) == True # Sand has fallen one cell down
     assert particle_function(start_grid, SandParticle(start_grid, grid_bounds[0], grid_bounds[1]), grid_bounds[0], grid_bounds[1], (grid_bounds[0], grid_bounds[1])) == True # Sand is not out of bounds
 
 def test_answer():
