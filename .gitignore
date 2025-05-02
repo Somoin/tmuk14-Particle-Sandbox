@@ -4,3 +4,6 @@
 #Ignore the config file
 src/config.ini
 
+src/.coverage
+
+src/htmlcov
