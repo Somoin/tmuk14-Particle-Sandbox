@@ -28,11 +28,11 @@ pg.display.set_caption("Particle Sandbox")
 
 def button_check_hover(x):
     button = Button("images/sandbutton.png", 0, 0, "images/sandbutton_hover.png", 100, 100)
-    return button.check_hover((x, x))
+    return button.check_mouse((x, x))
 
 def button_check_press(x, particle_type):
     button = Button("images/waterbutton.png", 0, 0, "images/waterbutton_hover.png", 100, 100)
-    if button.check_press((x, x)):
+    if button.check_mouse((x, x)):
         return True if particle_type == ParticleType.WATER else False
            
 def particle_function(start_grid, particle, x, y, expected_pos):

@@ -9,7 +9,7 @@ class Button:
         self.rect.width = b_width
         self.rect.height = b_height
 
-    def check_hover(self, mouse_pos):
+    def check_mouse(self, mouse_pos):
         if self.rect.collidepoint(mouse_pos):
             return True
         else:
@@ -20,7 +20,7 @@ class Button:
         # Scale factor for the button size
         scale_factor = 1.05 
         # Check if the mouse is hovering over the button
-        if self.check_hover(pg.mouse.get_pos()):
+        if self.check_mouse(pg.mouse.get_pos()):
             # Transform the size of button and change image
             self.image = pg.transform.scale(self.image_hover, (self.rect.width * scale_factor, self.rect.height * scale_factor))
 
@@ -35,10 +35,5 @@ class Button:
             self.image = pg.transform.scale(self.image_default, (self.rect.width, self.rect.height))
             new_rect = self.rect
         window.blit(self.image, new_rect)
-     
-    def check_press(self, mouse_pos):
-        if self.rect.collidepoint(mouse_pos):
-            return True
-        else:
-            return False
+    
         

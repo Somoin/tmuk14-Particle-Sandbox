@@ -148,22 +148,22 @@ def main():
 
 
             if event.type == pg.MOUSEBUTTONDOWN: #Registers when clicked once
-                if sand_button.check_press(pg.mouse.get_pos()):
+                if sand_button.check_mouse(pg.mouse.get_pos()):
                     print("Sand Button Pressed")
                     particle_type = ParticleType.SAND
-                if water_button.check_press(pg.mouse.get_pos()):
+                if water_button.check_mouse(pg.mouse.get_pos()):
                     print("Water Button Pressed")
                     particle_type = ParticleType.WATER
-                if concrete_button.check_press(pg.mouse.get_pos()):
+                if concrete_button.check_mouse(pg.mouse.get_pos()):
                     print("Concrete Button Pressed")
                     particle_type = ParticleType.CONCRETE
-                if fire_button.check_press(pg.mouse.get_pos()):
+                if fire_button.check_mouse(pg.mouse.get_pos()):
                     print("Fire Button Pressed")
                     particle_type = ParticleType.FIRE
-                if wood_button.check_press(pg.mouse.get_pos()):
+                if wood_button.check_mouse(pg.mouse.get_pos()):
                     print("Wood Button Pressed")
                     particle_type = ParticleType.WOOD
-                if gunpowder_button.check_press(pg.mouse.get_pos()):
+                if gunpowder_button.check_mouse(pg.mouse.get_pos()):
                     print("Gunpowder Button Pressed")
                     particle_type = ParticleType.GUNPOWDER
 
