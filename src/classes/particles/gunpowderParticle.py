@@ -17,12 +17,23 @@ class GunpowderParticle(Particle):
     def update(self, grid, x, y):
         if y == self.grid.rows-1: # out of bounds bottom
             return (x,y)
-        elif self.grid.cells[x][y+1] is None: # move down
-            return (x,y+1)   
-        elif (x != 0) and self.grid.cells[x-1][y+1] is None: # move down left
+        
+        # Gravity 
+        startPos = (x,y)
+        currPos = startPos
+        for i in range(self.gravity):
+            if y+i+1 == self.grid.rows-1:
+                return currPos
+            if self.grid.cells[x][y+1+i] is None: # move down
+                currPos = (x,y+1+i) 
+                
+        if currPos != startPos:
+            return currPos
+         
+        if (x != 0) and self.grid.cells[x-1][y+1] is None: # move down left
             return (x-1,y+1)
-        elif (x != self.grid.cols-1) and self.grid.cells[x+1][y+1] is None: # move down right
+        if (x != self.grid.cols-1) and self.grid.cells[x+1][y+1] is None: # move down right
             return (x+1,y+1)
-        else: # stay in place
-            return (x,y)
+      
+        return (x,y)
         
