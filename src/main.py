@@ -12,6 +12,7 @@ from classes.particles.smokeParticle import SmokeParticle
 from classes.particles.woodParticle import WoodParticle
 from classes.particles.fireParticle import FireParticle
 from classes.particles.gunpowderParticle import GunpowderParticle
+from classes.particles.virusParticle import VirusParticle
 from classes.text_display import TextDisplay
 
 
@@ -27,6 +28,7 @@ class ParticleType(Enum): # Enum for particle types
     FIRE = 7
     GUNPOWDER = 8
     GAS = 9
+    VIRUS = 10
     #default = AIR
 
 class CursorMode(Enum): # Enum for cursor modes
@@ -122,6 +124,10 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         particle = GunpowderParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
 
+    elif particle_type == ParticleType.VIRUS:
+        particle = VirusParticle(simulation.grid, mouse_x, mouse_y)
+        simulation.add_particle(particle, mouse_x, mouse_y)
+
 
 def main(): 
 
@@ -192,6 +198,9 @@ def main():
                 if event.key == pg.K_8:
                     particle_type = ParticleType.GAS
                     print("Air Key Pressed")
+                if event.key == pg.K_9:
+                    particle_type = ParticleType.VIRUS
+                    print("Virus Key Pressed")
                 if event.key == pg.K_c:
                     simulation.clear()
 
