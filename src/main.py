@@ -96,7 +96,7 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         particle = SandParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.WATER:
-        particle = WaterParticle(simulation.grid, mouse_x, mouse_y, lifetime=250)
+        particle = WaterParticle(simulation.grid, mouse_x, mouse_y, lifetime=100)
         simulation.add_particle(particle, mouse_x, mouse_y)
     elif particle_type == ParticleType.CONCRETE:
         particle = ConcreteParticle(simulation.grid, mouse_x, mouse_y)

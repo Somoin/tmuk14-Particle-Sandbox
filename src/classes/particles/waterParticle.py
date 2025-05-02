@@ -16,6 +16,7 @@ class WaterParticle(Particle):
         self.liquid = True
         self.direction = 0
         self.lifetime = lifetime
+        self.velocity = 3
         if rd.choice([True, False]):
             self.direction = 0 #left
         else:
@@ -46,17 +47,101 @@ class WaterParticle(Particle):
         if y == grid.rows-1: # out of bounds bottom
             return (x,y)
 
-        elif grid.cells[x][y+1] is None: # move down
-            return (x,y+1)
-        elif (x != 0) and grid.cells[x-1][y+1] is None: # move down left
-            return (x-1,y+1)
-        elif (x != grid.cols-1) and grid.cells[x+1][y+1] is None: # move down right
-            return (x+1,y+1)
-        if (x != 0) and grid.cells[x-1][y] is None and self.direction == 0:
+        # Gravity 
+        down = moveDown(grid, x, y, self.gravity)
+        if down != (x,y):
+            return down
+        
+        downleft = moveDownLeft(grid, x, y, self.velocity)
+        if downleft != (x,y):
+            return downleft
+    
+        downright = moveDownRight(grid, x, y, self.velocity)
+        if downright != (x,y):
+            return downright
+
+
+        # Move left
+        left = moveLeft(grid, x, y, self.direction, self.velocity)
+        if left != (x,y):
             self.lifetime -= 1
-            return(x-1,y)
-        if (x != grid.cols-1) and grid.cells[x+1][y] is None and self.direction == 1:
+            return left
+        
+        # Move right
+        right = moveRight(grid, x, y, self.direction, self.velocity)
+        if right != (x,y):
             self.lifetime -= 1
-            return(x+1,y)
-        else: #stay in place
-            return (x,y)
+            return right
+
+        return (x,y) # Stay in place if no movement is possible
+
+
+def moveLeft(grid, x, y, direction, velocity):
+    startPos = (x,y)
+    currPos = startPos
+    for i in range(velocity):
+        if x-i-1 == 0:
+            return currPos
+        if (x != 0) and grid.cells[x-1-i][y] is None and direction == 0:
+            currPos = (x-i-1,y)
+    
+    if startPos != currPos:
+        return currPos
+    else:
+        return (x,y)
+
+def moveRight(grid, x, y, direction, velocity):
+    startPos = (x,y)
+    currPos = startPos
+    for i in range(velocity):
+        if x+i+1 == grid.cols-1:
+            return currPos
+        if (x != grid.cols-1) and grid.cells[x+1+i][y] is None and direction == 1:
+            return(x+i+1,y)
+    
+    if startPos != currPos:
+        return currPos
+    else:
+        return (x,y)
+
+def moveDown(grid, x, y, gravity):
+    startPos = (x,y)
+    currPos = startPos
+    for i in range(gravity):
+        if y+i+1 == grid.rows-1:
+            return currPos
+        if grid.cells[x][y+1+i] is None: # move down
+            currPos = (x,y+1+i) 
+            
+    if currPos != startPos:
+        return currPos
+    else:
+        return (x,y)
+    
+def moveDownLeft(grid, x, y, gravity):
+    startPos = (x,y)
+    currPos = startPos
+    for i in range(gravity):
+        if x-i-1 == 0 or y+i+1 == grid.rows-1:
+            return currPos
+        if (x != 0) and grid.cells[x-1-i][y+1+i] is None: # move down left
+            currPos =  (x-1-i,y+1+i)
+            
+    if currPos != startPos:
+        return currPos
+    else:
+        return (x,y)
+    
+def moveDownRight(grid, x, y, gravity):
+    startPos = (x,y)
+    currPos = startPos
+    for i in range(gravity):
+        if x+i+1 == grid.cols-1 or y+i+1 == grid.rows-1:
+            return currPos
+        if (x != grid.cols-1) and grid.cells[x+1+i][y+1+i] is None: # move down right
+            return (x+1+i,y+1+i)
+            
+    if currPos != startPos:
+        return currPos
+    else:
+        return (x,y)
