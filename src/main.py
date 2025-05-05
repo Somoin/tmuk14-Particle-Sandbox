@@ -155,22 +155,16 @@ def main():
 
             if event.type == pg.MOUSEBUTTONDOWN: #Registers when clicked once
                 if sand_button.check_mouse(pg.mouse.get_pos()):
-                    print("Sand Button Pressed")
                     particle_type = ParticleType.SAND
                 if water_button.check_mouse(pg.mouse.get_pos()):
-                    print("Water Button Pressed")
                     particle_type = ParticleType.WATER
                 if concrete_button.check_mouse(pg.mouse.get_pos()):
-                    print("Concrete Button Pressed")
                     particle_type = ParticleType.CONCRETE
                 if fire_button.check_mouse(pg.mouse.get_pos()):
-                    print("Fire Button Pressed")
                     particle_type = ParticleType.FIRE
                 if wood_button.check_mouse(pg.mouse.get_pos()):
-                    print("Wood Button Pressed")
                     particle_type = ParticleType.WOOD
                 if gunpowder_button.check_mouse(pg.mouse.get_pos()):
-                    print("Gunpowder Button Pressed")
                     particle_type = ParticleType.GUNPOWDER
                 if virus_button.check_mouse(pg.mouse.get_pos()):
                     print("Virus Button Pressed")
@@ -180,31 +174,22 @@ def main():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_1:
                     particle_type = ParticleType.SAND
-                    print("Sand Key Pressed")
                 if event.key == pg.K_2:
                     particle_type = ParticleType.WATER
-                    print("Water Key Pressed")
                 if event.key == pg.K_3:
                     particle_type = ParticleType.CONCRETE
-                    print("Cement Key Pressed")
                 if event.key == pg.K_4:
                     particle_type = ParticleType.SMOKE
-                    print("Smoke Key Pressed")
                 if event.key == pg.K_5:
                     particle_type = ParticleType.WOOD
-                    print("Wood Key Pressed")
                 if event.key == pg.K_6:
                     particle_type = ParticleType.FIRE
-                    print("Fire Key Pressed")
                 if event.key == pg.K_7:
                     particle_type = ParticleType.GUNPOWDER
-                    print("Gunpowder Key Pressed")
                 if event.key == pg.K_8:
                     particle_type = ParticleType.GAS
-                    print("Air Key Pressed")
                 if event.key == pg.K_9:
                     particle_type = ParticleType.VIRUS
-                    print("Virus Key Pressed")
                 if event.key == pg.K_c:
                     simulation.clear()
 
