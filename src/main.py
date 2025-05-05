@@ -3,6 +3,7 @@ from configparser import ConfigParser
 import pygame as pg
 from classes.button import Button
 from simulation import Simulation
+from effects import Effects
 
 from classes.fps_counter import fps_counter # Import fps_counter class from classes/fps_counter.py
 from classes.particles.sandParticle import SandParticle
@@ -199,6 +200,11 @@ def main():
                         cursor_type = CursorMode.BLOCK
                     else:
                         cursor_type = CursorMode.DEFAULT
+
+                # Temporary effect keys
+                if event.key == pg.K_r:
+                    effects = Effects(simulation)
+                    effects.eye_of_rah()
 
 
         mouse_x = pg.mouse.get_pos()[0]//cell_size
