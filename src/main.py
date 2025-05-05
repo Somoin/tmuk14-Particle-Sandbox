@@ -77,6 +77,7 @@ clock = pg.time.Clock()
 simulation_width = window_width # Width and height for the simulation
 simulation_height = round(window_height - (window_height*0.375))
 simulation = Simulation(simulation_width, simulation_height, cell_size)
+effects = Effects(simulation)
 fps_counter = fps_counter(window, pg.font.Font(None, 30), clock, (255, 255, 255), (60, 25))
 
 TEXT_PADDING_X = 350 # Create objects
@@ -203,8 +204,10 @@ def main():
 
                 # Temporary effect keys
                 if event.key == pg.K_r:
-                    effects = Effects(simulation)
                     effects.eye_of_rah()
+
+                if event.key == pg.K_f:
+                    effects.ignis()
 
 
         mouse_x = pg.mouse.get_pos()[0]//cell_size
