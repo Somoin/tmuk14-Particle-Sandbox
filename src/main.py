@@ -91,7 +91,8 @@ concrete_button = Button("images/concretebutton.png", 620, 550, "images/concrete
 fire_button = Button("images/firebutton.png", 870, 550, "images/firebutton_hover.png", button_width, button_height)
 wood_button = Button("images/woodbutton.png", 1120, 550,"images/woodbutton_hover.png", button_width, button_height)
 gunpowder_button = Button("images/gunpowderbutton.png", 120, 675, "images/gunpowderbutton_hover.png", button_width, button_height)
-buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button]
+virus_button = Button("images/virusbutton.png", 370, 675, "images/virusbutton_hover.png", button_width, button_height)
+buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button, virus_button]
 
 def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simulation based on mouse coordinates
     if particle_type == ParticleType.SAND:
@@ -171,6 +172,9 @@ def main():
                 if gunpowder_button.check_mouse(pg.mouse.get_pos()):
                     print("Gunpowder Button Pressed")
                     particle_type = ParticleType.GUNPOWDER
+                if virus_button.check_mouse(pg.mouse.get_pos()):
+                    print("Virus Button Pressed")
+                    particle_type = ParticleType.VIRUS
 
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
