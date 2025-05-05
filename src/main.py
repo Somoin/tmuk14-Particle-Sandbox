@@ -125,7 +125,7 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
         simulation.add_particle(particle, mouse_x, mouse_y)
 
     elif particle_type == ParticleType.VIRUS:
-        particle = VirusParticle(simulation.grid, mouse_x, mouse_y)
+        particle = VirusParticle(simulation.grid, mouse_x, mouse_y, lifetime=100, standard_lifetime=100)
         simulation.add_particle(particle, mouse_x, mouse_y)
 
 
