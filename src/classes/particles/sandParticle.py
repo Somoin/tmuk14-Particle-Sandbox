@@ -15,6 +15,7 @@ colors = [
 class SandParticle(Particle):
     def __init__(self, grid, x, y):
         super().__init__("sand", rd.choice(colors), grid, x ,y)
+        self.colors = colors
     
     def update(self, grid, x, y):
         if y == self.grid.rows-1: # out of bounds bottom

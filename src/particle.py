@@ -1,9 +1,12 @@
 from classes.grid import Grid
+import random
 
 class Particle:
     def __init__(self, name, color, grid, x, y, static=False, flammable=False, flammability=0, liquid=False):
         self.name = name
         self.color = color
+        self.colors = [color]
+        self.colorOrder = (random.randint(0, 2),random.randint(0, 2),random.randint(0, 2))
         self.grid = grid
         self.x = x
         self.y = y

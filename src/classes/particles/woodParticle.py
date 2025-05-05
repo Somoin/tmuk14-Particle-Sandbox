@@ -4,6 +4,7 @@ import random as rd
 colors = [
     (79,32,15),
     (149,69,32),
+    (149,69,32)
 ]
 
 
@@ -13,6 +14,7 @@ class WoodParticle(Particle):
         self.static = True
         self.flammable = True # Wood is flammable
         self.flammability = 1
+        self.colors = colors
         
 
 

@@ -2,7 +2,7 @@ from particle import Particle
 import random as rd
 
 colors = [
-    #(15,94,156),
+    (15,94,156),
     (35,137,218),
     (28,163,236),
     #(90,188,216),
@@ -13,6 +13,7 @@ colors = [
 class WaterParticle(Particle):
     def __init__(self, grid, x, y, lifetime):
         super().__init__("water", rd.choice(colors), grid, x ,y)
+        self.colors = colors
         self.liquid = True
         self.direction = 0
         self.lifetime = lifetime

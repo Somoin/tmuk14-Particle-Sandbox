@@ -2,7 +2,7 @@ from particle import Particle
 import random as rd
 
 colors = [
-    #(150,146,146),
+    (150,146,146),
     (111,111,111),
     (55,54,54)
 ]
@@ -12,6 +12,7 @@ class SmokeParticle(Particle):
     def __init__(self, grid, x, y, lifetime):
         super().__init__("smoke", rd.choice(colors), grid, x ,y)
         self.lifetime = lifetime
+        self.colors = colors
     
     def update(self, grid, x, y):
 

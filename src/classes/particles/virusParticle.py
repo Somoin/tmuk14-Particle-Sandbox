@@ -13,6 +13,7 @@ class VirusParticle(Particle):
     def __init__(self, grid, x, y):
         super().__init__("virus", rd.choice(colors), grid, x ,y)
         self.directions = [(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)] # 8 directions
+        self.colors = colors
     
     def update(self, grid, x, y):
         if y == self.grid.rows-1: # out of bounds bottom

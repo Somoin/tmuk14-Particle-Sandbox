@@ -13,6 +13,7 @@ class GunpowderParticle(Particle):
         super().__init__("gunpowder", rd.choice(colors), grid, x ,y)
         self.flammable = True
         self.flammability = 5 # Multiplier of flammability
+        self.colors = colors
     
     def update(self, grid, x, y):
         if y == self.grid.rows-1: # out of bounds bottom

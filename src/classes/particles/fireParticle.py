@@ -17,6 +17,7 @@ class FireParticle(Particle):
         self.lifetime = self.max_lifetime 
         self.smoke_lifetime = 10
         self.smoke_potency = 1  # The chance of creating smoke when burning a flammable particle
+        self.colors = colors
 
     def create_smoke(self, x, y):
         if y > 0 and self.grid.cells[x][y-1] is None:
