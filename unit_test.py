@@ -3,9 +3,9 @@ import pygame as pg
 from main import ParticleType
 from configparser import ConfigParser
 
-from classes.button import Button
-from classes.particles.sandParticle import SandParticle
-from classes.grid import Grid
+from src.classes.button import Button
+from src.classes.particles.sandParticle import SandParticle
+from src.classes.grid import Grid
 
 
 pg.init()
@@ -27,11 +27,11 @@ pg.display.set_caption("Particle Sandbox")
 
 
 def button_check_hover(x):
-    button = Button("images/sandbutton.png", 0, 0, "images/sandbutton_hover.png", 100, 100)
+    button = Button("src/images/sandbutton.png", 0, 0, "src/images/sandbutton_hover.png", 100, 100)
     return button.check_mouse((x, x))
 
 def button_check_press(x, particle_type):
-    button = Button("images/waterbutton.png", 0, 0, "images/waterbutton_hover.png", 100, 100)
+    button = Button("src/images/waterbutton.png", 0, 0, "src/images/waterbutton_hover.png", 100, 100)
     if button.check_mouse((x, x)):
         return True if particle_type == ParticleType.WATER else False
            
