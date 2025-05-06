@@ -28,20 +28,24 @@ Basic Examples:
 The language used is Python using the [Pygame](https://www.pygame.org/news) library. 
 
 # How to run
-Ensure Pygame is installed and run main.py from inside the src directory.
+Ensure Pygame is installed and run main.py from inside the root directory. <br>
+<br>
+OR <br>
+<br>
+Run main.exe in the root directory
 
 # Testing
 To run the unit test you need to install [pytest](https://docs.pytest.org/en/stable/getting-started.html). <br/>
-When inside the src directory write into the terminal: python -m pytest unit_test.py 
+When inside the root directory write into the terminal: python -m pytest unit_test.py 
 
 For code linting [Pylint](https://pypi.org/project/pylint/) is used. <br/>
-To run go into the src directory and write: python -m pylint FILENAME.py
+To run write: python -m pylint FILENAME.py
 
 # Generate code coverage
 To generate code coverage you need to install [Coverage.py](https://coverage.readthedocs.io/en/7.8.0/). <br/>
-When inside the src directory write into the terminal: python -m coverage run unit_test.py <br/>
-After you run the program and test every feature you can close it and write into the terminal: python -m coverage report <br/>
-You can also create an HTML file with the command: python -m coverage html
+When inside the root directory write into the terminal: python -m coverage run unit_test.py <br/>
+To generate a html report write into the terminal: python -m coverage report <br/>
+To see the report as an HTML write the command: python -m coverage html
 
 # Kanban Board
 https://github.com/users/Somoin/projects/1/views/1
