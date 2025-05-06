@@ -28,7 +28,11 @@ Basic Examples:
 The language used is Python using the [Pygame](https://www.pygame.org/news) library. 
 
 # How to run
-Ensure Pygame is installed and run main.py from inside the src directory.
+Ensure Pygame is installed and run main.py from inside the root directory. <br>
+<br>
+OR <br>
+<br>
+Run main.exe in the root directory
 
 # Testing
 To run the unit test you need to install [pytest](https://docs.pytest.org/en/stable/getting-started.html). <br/>
