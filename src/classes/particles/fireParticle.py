@@ -1,5 +1,5 @@
-from particle import Particle
-from classes.particles.smokeParticle import SmokeParticle
+from src.particle import Particle
+from src.classes.particles.smokeParticle import SmokeParticle
 import random as rd
 
 colors = [

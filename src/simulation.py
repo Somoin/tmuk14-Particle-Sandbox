@@ -1,4 +1,4 @@
-from classes.grid import Grid
+from src.classes.grid import Grid
 
 
 class Simulation:

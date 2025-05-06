@@ -1,4 +1,4 @@
-from particle import Particle
+from src.particle import Particle
 import random as rd
 
 

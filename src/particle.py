@@ -1,4 +1,4 @@
-from classes.grid import Grid
+from src.classes.grid import Grid
 
 class Particle:
     def __init__(self, name, color, grid, x, y, static=False, flammable=False, flammability=0, liquid=False):

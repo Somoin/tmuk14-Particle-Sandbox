@@ -1,5 +1,5 @@
-from particle import Particle
-from classes.particles.waterParticle import WaterParticle
+from src.particle import Particle
+from src.classes.particles.waterParticle import WaterParticle
 import random as rd
 
 
