@@ -7,3 +7,6 @@ src/config.ini
 src/.coverage
 
 src/htmlcov
+
+#Ignore build folder
+build
