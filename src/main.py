@@ -96,7 +96,8 @@ wood_button = Button("images/woodbutton.png", 1120, 550,"images/woodbutton_hover
 gunpowder_button = Button("images/gunpowderbutton.png", 120, 675, "images/gunpowderbutton_hover.png", button_width, button_height)
 virus_button = Button("images/virusbutton.png", 370, 675, "images/virusbutton_hover.png", button_width, button_height)
 eyeofrah_button = Button("images/eyeofrahbutton.png", 620, 675, "images/eyeofrahbutton_hover.png", button_width, button_height)
-buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button, virus_button, eyeofrah_button]
+ignite_button = Button("images/ignitebutton.png", 870, 675, "images/ignitebutton_hover.png", button_width, button_height)
+buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button, virus_button, eyeofrah_button, ignite_button]
 
 
 eye_of_rah_sheet = Animation("images/eyeofrah-Sheet.png", 4, 500) # Create an instance of the Animation class
@@ -187,6 +188,8 @@ def main():
                     eye_of_rah_active = True
                     last_update = pg.time.get_ticks()
                     effects.eye_of_rah()
+                if ignite_button.check_mouse(pg.mouse.get_pos()):
+                    effects.ignis()
 
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
