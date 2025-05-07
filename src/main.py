@@ -14,6 +14,7 @@ from classes.particles.fireParticle import FireParticle
 from classes.particles.gunpowderParticle import GunpowderParticle
 from classes.particles.virusParticle import VirusParticle
 from classes.text_display import TextDisplay
+from classes.animation import Animation
 
 
 
@@ -92,9 +93,16 @@ fire_button = Button("images/firebutton.png", 870, 550, "images/firebutton_hover
 wood_button = Button("images/woodbutton.png", 1120, 550,"images/woodbutton_hover.png", button_width, button_height)
 gunpowder_button = Button("images/gunpowderbutton.png", 120, 675, "images/gunpowderbutton_hover.png", button_width, button_height)
 virus_button = Button("images/virusbutton.png", 370, 675, "images/virusbutton_hover.png", button_width, button_height)
-buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button, virus_button]
+eyeofrah_button = Button("images/eyeofrahbutton.png", 620, 675, "images/eyeofrahbutton_hover.png", button_width, button_height)
+buttons = [sand_button, water_button, concrete_button, fire_button, wood_button, gunpowder_button, virus_button, eyeofrah_button]
+
+
+eye_of_rah_sheet = Animation("images/eyeofrah-Sheet.png", 4, 500) # Create an instance of the Animation class
+for i in range(eye_of_rah_sheet.no_frames): # Create a list of animation frames
+    eye_of_rah_sheet.frame_list.append(eye_of_rah_sheet.get_frame(i, 80, 80, 5, 5, (0, 0, 0)))
 
 def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simulation based on mouse coordinates
+
     if particle_type == ParticleType.SAND:
         particle = SandParticle(simulation.grid, mouse_x, mouse_y)
         simulation.add_particle(particle, mouse_x, mouse_y)
@@ -132,6 +140,11 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
 
 def main(): 
 
+    # Eye of Rah animation variables
+    last_update = pg.time.get_ticks()
+    current_frame = 0
+    eye_of_rah_active = False
+
     particle_type = ParticleType.AIR
     cursor_type = CursorMode.DEFAULT
 
@@ -167,8 +180,10 @@ def main():
                 if gunpowder_button.check_mouse(pg.mouse.get_pos()):
                     particle_type = ParticleType.GUNPOWDER
                 if virus_button.check_mouse(pg.mouse.get_pos()):
-                    print("Virus Button Pressed")
                     particle_type = ParticleType.VIRUS
+                if eyeofrah_button.check_mouse(pg.mouse.get_pos()):
+                    eye_of_rah_active = True
+                    last_update = pg.time.get_ticks()
 
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
@@ -190,6 +205,9 @@ def main():
                     particle_type = ParticleType.GAS
                 if event.key == pg.K_9:
                     particle_type = ParticleType.VIRUS
+                if event.key == pg.K_r:
+                    eye_of_rah_active = True
+                    last_update = pg.time.get_ticks()
                 if event.key == pg.K_c:
                     simulation.clear()
 
@@ -232,6 +250,7 @@ def main():
         for button in buttons:
             button.draw(window)
 
+
         simulation.draw(window)
         simulation.update()
 
@@ -241,9 +260,18 @@ def main():
         fps_counter.update() # Update the fps_counter
         fps_counter.render() # Render the fps_counter
 
+        # Draw the Eye of Rah animation
+        if eye_of_rah_active == True:
+            window.blit(eye_of_rah_sheet.frame_list[current_frame], (400, 80)) # Draw the current frame of the animation
+            if pg.time.get_ticks() - last_update >= eye_of_rah_sheet.cooldown:
+                current_frame += 1 
+                last_update = pg.time.get_ticks()  
+                if current_frame >= len(eye_of_rah_sheet.frame_list):
+                    eye_of_rah_active = False # Stops the animation after one cycle
+                    current_frame = 0
+            
         pg.display.update()
         clock.tick(FPS) # clock ticks at the specified FPS
-
 
         pg.display.flip()
 
