@@ -186,6 +186,7 @@ def main():
                 if eyeofrah_button.check_mouse(pg.mouse.get_pos()):
                     eye_of_rah_active = True
                     last_update = pg.time.get_ticks()
+                    effects.eye_of_rah()
 
             # Debug Keyboard input
             if event.type == pg.KEYDOWN:
@@ -207,9 +208,6 @@ def main():
                     particle_type = ParticleType.GAS
                 if event.key == pg.K_9:
                     particle_type = ParticleType.VIRUS
-                if event.key == pg.K_r:
-                    eye_of_rah_active = True
-                    last_update = pg.time.get_ticks()
                 if event.key == pg.K_c:
                     simulation.clear()
 
@@ -222,6 +220,8 @@ def main():
 
                 # Temporary effect keys
                 if event.key == pg.K_r:
+                    eye_of_rah_active = True
+                    last_update = pg.time.get_ticks()
                     effects.eye_of_rah()
 
                 if event.key == pg.K_f:
