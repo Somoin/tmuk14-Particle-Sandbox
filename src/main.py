@@ -104,6 +104,10 @@ eye_of_rah_sheet = Animation("images/eyeofrah-Sheet.png", 4, 500) # Create an in
 for i in range(eye_of_rah_sheet.no_frames): # Create a list of animation frames
     eye_of_rah_sheet.frame_list.append(eye_of_rah_sheet.get_frame(i, 80, 80, 5, 5, (0, 0, 0)))
 
+ignite_sheet = Animation("images/ignite-Sheet.png", 5, 500) # Create an instance of the Animation class
+for i in range(ignite_sheet.no_frames): # Create a list of animation frames
+    ignite_sheet.frame_list.append(ignite_sheet.get_frame(i, 80, 80, 2, 2, (0, 0, 0)))
+
 def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simulation based on mouse coordinates
 
     if particle_type == ParticleType.SAND:
@@ -143,10 +147,12 @@ def particle_input(particle_type, mouse_x, mouse_y): # Adds particle to the simu
 
 def main(): 
 
-    # Eye of Rah animation variables
+    # Animation variables
     last_update = pg.time.get_ticks()
     current_frame = 0
     eye_of_rah_active = False
+
+    ignis_active = False
 
     particle_type = ParticleType.AIR
     cursor_type = CursorMode.DEFAULT
@@ -189,6 +195,7 @@ def main():
                     last_update = pg.time.get_ticks()
                     effects.eye_of_rah()
                 if ignite_button.check_mouse(pg.mouse.get_pos()):
+                    ignis_active = True
                     effects.ignis()
 
             # Debug Keyboard input
@@ -280,6 +287,16 @@ def main():
                 last_update = pg.time.get_ticks()  
                 if current_frame >= len(eye_of_rah_sheet.frame_list):
                     eye_of_rah_active = False # Stops the animation after one cycle
+                    current_frame = 0
+                    
+        # Draw the ignite animation
+        if ignis_active == True:
+            window.blit(ignite_sheet.frame_list[current_frame], (580, 80)) # Draw the current frame of the animation
+            if pg.time.get_ticks() - last_update >= ignite_sheet.cooldown:
+                current_frame += 1 
+                last_update = pg.time.get_ticks()  
+                if current_frame >= len(ignite_sheet.frame_list):
+                    ignis_active = False
                     current_frame = 0
             
         pg.display.update()
