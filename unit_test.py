@@ -5,6 +5,11 @@ from configparser import ConfigParser
 
 from src.classes.button import Button
 from src.classes.particles.sandParticle import SandParticle
+
+#Static particles
+from src.classes.particles.concreteParticle import ConcreteParticle
+from src.classes.particles.woodParticle import WoodParticle
+
 from src.classes.grid import Grid
 
 
@@ -23,6 +28,12 @@ start_particle = SandParticle(start_grid, 0,0)
 start_grid.cells[0][0] = start_particle
 grid_bounds = (start_grid.cols - 1, start_grid.rows - 1)
 
+# Static particles
+concrete_particle = ConcreteParticle(start_grid, 1, 1)
+wood_particle = WoodParticle(start_grid, 2, 2)
+start_grid.cells[1][1] = concrete_particle
+start_grid.cells[2][2] = wood_particle
+
 pg.display.set_caption("Particle Sandbox")
 
 
@@ -36,13 +47,18 @@ def button_check_press(x, particle_type):
         return True if particle_type == ParticleType.WATER else False
            
 def particle_function(start_grid, particle, x, y, expected_pos):
-    next_pos = particle.update(start_grid, x, y)
+    if particle.update(start_grid, x, y) != None:
+        next_pos = particle.update(start_grid, x, y)
+    if particle.update(start_grid, x, y) == None and particle.static == True:
+        return True
     if next_pos == expected_pos:
         return True
     else:
         return False
 
 def test_particle():
+    assert particle_function(start_grid, concrete_particle, 1, 1, (1, 1)) == True 
+    assert particle_function(start_grid, wood_particle, 2, 2, (2, 2)) == True 
     assert particle_function(start_grid, start_particle, grid_bounds[0], grid_bounds[1]-1, (grid_bounds[0], grid_bounds[1])) == True # Sand has fallen one cell down
     assert particle_function(start_grid, SandParticle(start_grid, grid_bounds[0], grid_bounds[1]), grid_bounds[0], grid_bounds[1], (grid_bounds[0], grid_bounds[1])) == True # Sand is not out of bounds
 
