@@ -6,6 +6,7 @@ from configparser import ConfigParser
 from src.classes.button import Button
 from src.classes.particles.sandParticle import SandParticle
 from src.classes.grid import Grid
+from src.simulation import Simulation
 
 
 pg.init()
@@ -25,6 +26,7 @@ grid_bounds = (start_grid.cols - 1, start_grid.rows - 1)
 
 pg.display.set_caption("Particle Sandbox")
 
+simulation = Simulation(window_width, window_height, cell_size)
 
 def button_check_hover(x):
     button = Button("src/images/sandbutton.png", 0, 0, "src/images/sandbutton_hover.png", 100, 100)
@@ -41,6 +43,9 @@ def particle_function(start_grid, particle, x, y, expected_pos):
         return True
     else:
         return False
+    
+def simulation_adding():
+    pass
 
 def test_particle():
     assert particle_function(start_grid, start_particle, grid_bounds[0], grid_bounds[1]-1, (grid_bounds[0], grid_bounds[1])) == True # Sand has fallen one cell down
