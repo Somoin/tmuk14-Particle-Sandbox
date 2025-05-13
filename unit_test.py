@@ -5,6 +5,7 @@ from configparser import ConfigParser
 
 from src.classes.button import Button
 from src.classes.particles.sandParticle import SandParticle
+
 from src.classes.particles.waterParticle import WaterParticle
 from src.classes.particles.concreteParticle import ConcreteParticle
 from src.classes.particles.smokeParticle import SmokeParticle
@@ -12,6 +13,7 @@ from src.classes.particles.woodParticle import WoodParticle
 from src.classes.particles.fireParticle import FireParticle
 from src.classes.particles.gunpowderParticle import GunpowderParticle
 from src.classes.particles.virusParticle import VirusParticle
+
 from src.classes.grid import Grid
 from src.simulation import Simulation
 
@@ -31,6 +33,12 @@ start_particle = SandParticle(start_grid, 0,0)
 start_grid.cells[0][0] = start_particle
 grid_bounds = (start_grid.cols - 1, start_grid.rows - 1)
 
+# Static particles
+concrete_particle = ConcreteParticle(start_grid, 1, 1)
+wood_particle = WoodParticle(start_grid, 2, 2)
+start_grid.cells[1][1] = concrete_particle
+start_grid.cells[2][2] = wood_particle
+
 pg.display.set_caption("Particle Sandbox")
 
 simulation = Simulation(window_width, window_height, cell_size)
@@ -45,7 +53,10 @@ def button_check_press(x, particle_type):
         return True if particle_type == ParticleType.WATER else False
            
 def particle_function(start_grid, particle, x, y, expected_pos):
-    next_pos = particle.update(start_grid, x, y)
+    if particle.update(start_grid, x, y) != None:
+        next_pos = particle.update(start_grid, x, y)
+    if particle.update(start_grid, x, y) == None and particle.static == True:
+        return True
     if next_pos == expected_pos:
         return True
     else:
@@ -103,6 +114,8 @@ def test_simulation():
     assert isinstance(simulation.cells[1][0], FireParticle) == True # Check if the gunpowder turned into fire   
 
 def test_particle():
+    assert particle_function(start_grid, concrete_particle, 1, 1, (1, 1)) == True 
+    assert particle_function(start_grid, wood_particle, 2, 2, (2, 2)) == True 
     assert particle_function(start_grid, start_particle, grid_bounds[0], grid_bounds[1]-1, (grid_bounds[0], grid_bounds[1])) == True # Sand has fallen one cell down
     assert particle_function(start_grid, SandParticle(start_grid, grid_bounds[0], grid_bounds[1]), grid_bounds[0], grid_bounds[1], (grid_bounds[0], grid_bounds[1])) == True # Sand is not out of bounds
 
