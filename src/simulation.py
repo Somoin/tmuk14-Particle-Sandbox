@@ -20,9 +20,9 @@ class Chunk:
     def draw(self, window):
         for col in range(self.cols):
             for row in range(self.rows):
-                color = (30,30,30)
-                pg.draw.rect(window, color, (col * self.cell_size + self.x, row * self.cell_size + self.y, self.cell_size, self.cell_size))
-
+                color = (0,0,255,0.5)
+                pg.draw.rect(window, color, (col * self.cell_size + self.x, row * self.cell_size + self.y, self.cell_size, self.cell_size), 1)
+        pg.draw.rect(window, (255,0,0), (self.x, self.y, self.size, self.size), 1)
     
 
 class Simulation:
@@ -33,15 +33,28 @@ class Simulation:
         self.cells = self.grid.cells
         self.next_cells = Grid(window_width, window_height, cell_size) # Create a new grid for the next cells
 
-        self.chunk_size = 64 
+        self.chunk_size = 64
+        
+
         self.chunks = [] # List of chunks in the simulation
         self.chunk_cols = window_width // self.chunk_size
         self.chunk_rows = window_height // self.chunk_size
+        self.chunk_self_cols = self.chunk_size // cell_size
+        self.chunk_self_rows = self.chunk_size // cell_size
 
         for col in range(self.chunk_cols):
+            row_chunks = []
             for row in range(self.chunk_rows):
+
                 chunk = Chunk(col * self.chunk_size, row * self.chunk_size, self.chunk_size, cell_size, window_width, window_height)
-                self.chunks.append(chunk)
+                row_chunks.append(chunk)
+            self.chunks.append(row_chunks)
+        
+        print(self.cols)
+        print(self.rows)
+
+       # assert self.cols % self.chunk_size == 0, "Chunk size must divide grid width evenly"
+        #assert self.rows % self.chunk_size == 0, "Chunk size must divide grid height evenly"
 
 
     def draw(self, window):
@@ -54,10 +67,25 @@ class Simulation:
     def add_particle(self, particle, x, y):
         if 0 <= x and x < self.cols and 0 <= y and y < self.rows and self.cells[x][y] is None:
             self.cells[x][y] = particle
+            print("selected chunk = " + str(x // self.chunk_self_cols) + " " +  str(y // self.chunk_self_rows))
+            print("absolute = " + str(x) + "" + str(y))
+            print("relative = " + str(x % self.chunk_self_cols) + " " + str(y % self.chunk_self_rows))
+            selected_x = x // self.chunk_self_cols
+            selected_y = y // self.chunk_self_rows
+            rel_x = x % self.chunk_self_cols
+            rel_y = y % self.chunk_self_rows
+            self.chunks[selected_x][selected_y].cells[rel_x][rel_y] = particle
+            
+            
 
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
             self.cells[x][y] = None
+            selected_x = x // self.chunk_self_cols
+            selected_y = y // self.chunk_self_rows
+            rel_x = x % self.chunk_self_cols
+            rel_y = y % self.chunk_self_rows
+            #self.chunks[selected_x][selected_y].cells[rel_x][rel_y] = None
     
     def clear(self):
         for col in range(self.cols):
