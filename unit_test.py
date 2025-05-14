@@ -40,19 +40,7 @@ def button_check_press(x, particle_type):
     for i in range(len(buttons)):
         if buttons[i].check_mouse((x, x)):
                 return True if particle_type.name == elements[i] else False
-        
-    """sand_button = Button("src/images/sandbutton.png", 0, 0, "src/images/sandbutton_hover.png", 100, 100, True)
-    water_button = Button("src/images/waterbutton.png", 100, 100, "src/images/waterbutton_hover.png", 100, 100, True)
-    concrete_button = Button("src/images/concretebutton.png", 200, 200, "src/images/concretebutton_hover.png", 100, 100, True)
-
-    if sand_button.check_mouse((x, x)):
-        return True if particle_type == ParticleType.SAND else False
-    if water_button.check_mouse((x, x)):
-        return True if particle_type == ParticleType.WATER else False
-    if concrete_button.check_mouse((x, x)):
-        return True if particle_type == ParticleType.CONCRETE else False"""
-        
-
+    
            
 def particle_function(start_grid, particle, x, y, expected_pos):
     next_pos = particle.update(start_grid, x, y)
