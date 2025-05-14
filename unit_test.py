@@ -16,6 +16,7 @@ from src.classes.particles.virusParticle import VirusParticle
 
 from src.classes.grid import Grid
 from src.simulation import Simulation
+from src.particle import Particle
 
 
 pg.init()
@@ -62,6 +63,7 @@ def button_check_press(x, particle_type):
 def particle_function(start_grid, particle, x, y, expected_pos):
     if particle.update(start_grid, x, y) != None:
         next_pos = particle.update(start_grid, x, y)
+        print("Name: " + particle.name + "Next pos: " + str(next_pos))
     if particle.update(start_grid, x, y) == None and particle.static == True:
         return True
     if next_pos == expected_pos:
@@ -120,11 +122,44 @@ def test_simulation():
     simulation.update()
     assert isinstance(simulation.cells[1][0], FireParticle) == True # Check if the gunpowder turned into fire   
 
+    simulation.clear()
+
+
+
 def test_particle():
     assert particle_function(start_grid, concrete_particle, 1, 1, (1, 1)) == True 
     assert particle_function(start_grid, wood_particle, 2, 2, (2, 2)) == True 
     assert particle_function(start_grid, start_particle, grid_bounds[0], grid_bounds[1]-1, (grid_bounds[0], grid_bounds[1])) == True # Sand has fallen one cell down
     assert particle_function(start_grid, SandParticle(start_grid, grid_bounds[0], grid_bounds[1]), grid_bounds[0], grid_bounds[1], (grid_bounds[0], grid_bounds[1])) == True # Sand is not out of bounds
+
+    water_grid = Grid(window_height, window_width, cell_size) # 3x3 grid
+    water_particle = WaterParticle(water_grid, 1, 1, 100)
+    assert particle_function(water_grid, water_particle, 1, 1, (1, 1 + water_particle.gravity)) == True
+
+    new_concrete_particle = ConcreteParticle(water_grid, 1, 2) # Add concrete particle as obstacle
+    water_grid.cells[1][2] = new_concrete_particle
+    water_grid.cells[1][1] = water_particle
+    assert particle_function(water_grid, water_particle, 1, 1, (0, 2)) == True
+
+    new_water_particle = WaterParticle(water_grid, 1, 1, 0)
+    assert particle_function(water_grid, new_water_particle, 1, 1, (-1, -1)) == True
+
+    concrete_obstacle_1 = ConcreteParticle(water_grid, 0, 1)
+    concrete_obstacle_2 = ConcreteParticle(water_grid, 0, 2)
+    concrete_obstacle_3 = ConcreteParticle(water_grid, 1, 2)
+    water_grid.cells[0][1] = concrete_obstacle_1
+    water_grid.cells[0][2] = concrete_obstacle_2
+    water_grid.cells[1][2] = concrete_obstacle_3
+    water_grid.cells[1][1] = water_particle
+    assert particle_function(water_grid, water_particle, 1, 1, (2, 2)) == True # Water moves to the right
+
+
+
+
+
+
+
+
 
 def test_answer():
     assert button_check_hover(10) == True

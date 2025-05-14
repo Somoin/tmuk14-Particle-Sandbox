@@ -177,7 +177,7 @@ def main():
             elif event.type == pg.MOUSEBUTTONUP and event.button == 3: # Right mouse button released
                 right_click_down = False
 
-                        # Debug Keyboard input
+
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_1:
                     current_page = 1
