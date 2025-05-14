@@ -75,7 +75,7 @@ class Simulation:
 
     def add_particle(self, particle, x, y):
         if 0 <= x and x < self.cols and 0 <= y and y < self.rows and self.cells[x][y] is None:
-            #self.cells[x][y] = particle
+            self.cells[x][y] = particle
             print("selected chunk = " + str(x // self.chunk_self_cols) + " " +  str(y // self.chunk_self_rows))
             print("absolute = " + str(x) + " " + str(y))
             print("relative = " + str(x % self.chunk_self_cols) + " " + str(y % self.chunk_self_rows))
@@ -89,7 +89,7 @@ class Simulation:
 
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
-            #self.cells[x][y] = None
+            self.cells[x][y] = None
             selected_x = x // self.chunk_self_cols
             selected_y = y // self.chunk_self_rows
             rel_x = x % self.chunk_self_cols
@@ -103,7 +103,7 @@ class Simulation:
 
     def update_chunk(self, chunk):
         pass
-    
+
     def update(self):
         update_array = [] # Create an array to store the particles that need to be updated
 
