@@ -53,8 +53,17 @@ class Simulation:
         print(self.cols)
         print(self.rows)
 
-       # assert self.cols % self.chunk_size == 0, "Chunk size must divide grid width evenly"
-        #assert self.rows % self.chunk_size == 0, "Chunk size must divide grid height evenly"
+        print(window_height, window_height % self.chunk_size)
+        while window_width % self.chunk_size != 0:
+            window_width += 1
+        print("Recommendend width: " + str(window_height))
+        assert window_width % self.chunk_size == 0, "Chunk size must divide grid width evenly"
+        while window_height % self.chunk_size != 0:
+            window_height += 1
+        print("Recommendend height: " + str(window_height))
+        assert window_height % self.chunk_size == 0, "Chunk size must divide grid height evenly"
+
+    
 
 
     def draw(self, window):
@@ -66,9 +75,9 @@ class Simulation:
 
     def add_particle(self, particle, x, y):
         if 0 <= x and x < self.cols and 0 <= y and y < self.rows and self.cells[x][y] is None:
-            self.cells[x][y] = particle
+            #self.cells[x][y] = particle
             print("selected chunk = " + str(x // self.chunk_self_cols) + " " +  str(y // self.chunk_self_rows))
-            print("absolute = " + str(x) + "" + str(y))
+            print("absolute = " + str(x) + " " + str(y))
             print("relative = " + str(x % self.chunk_self_cols) + " " + str(y % self.chunk_self_rows))
             selected_x = x // self.chunk_self_cols
             selected_y = y // self.chunk_self_rows
@@ -80,18 +89,21 @@ class Simulation:
 
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
-            self.cells[x][y] = None
+            #self.cells[x][y] = None
             selected_x = x // self.chunk_self_cols
             selected_y = y // self.chunk_self_rows
             rel_x = x % self.chunk_self_cols
             rel_y = y % self.chunk_self_rows
-            #self.chunks[selected_x][selected_y].cells[rel_x][rel_y] = None
+            self.chunks[selected_x][selected_y].cells[rel_x][rel_y] = None
     
     def clear(self):
         for col in range(self.cols):
             for row in range(self.rows):
                 self.cells[col][row] = None
 
+    def update_chunk(self, chunk):
+        pass
+    
     def update(self):
         update_array = [] # Create an array to store the particles that need to be updated
 

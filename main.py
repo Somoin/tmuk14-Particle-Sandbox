@@ -55,7 +55,7 @@ else: # Creates a new config file if it doesn't exist
     config_object["CONFIG"] = { 
         "cell_size": 8,
         "window_width": 1280,
-        "window_height": 800,
+        "window_height": 720,
         "FPS": 120
     }
 
