@@ -44,13 +44,20 @@ pg.display.set_caption("Particle Sandbox")
 simulation = Simulation(window_width, window_height, cell_size)
 
 def button_check_hover(x):
-    button = Button("src/images/sandbutton.png", 0, 0, "src/images/sandbutton_hover.png", 100, 100)
+    button = Button("src/images/sandbutton.png", 0, 0, "src/images/sandbutton_hover.png", 100, 100, True)
     return button.check_mouse((x, x))
 
 def button_check_press(x, particle_type):
-    button = Button("src/images/waterbutton.png", 0, 0, "src/images/waterbutton_hover.png", 100, 100)
-    if button.check_mouse((x, x)):
-        return True if particle_type == ParticleType.WATER else False
+    element_buttons = ["sandbutton", "waterbutton", "concretebutton", "firebutton", "woodbutton", "gunpowderbutton", "virusbutton"]
+    elements = ["SAND", "WATER", "CONCRETE", "FIRE", "WOOD", "GUNPOWDER", "VIRUS"]
+    buttons = []
+    for i, y in enumerate(element_buttons):
+        # Create a button for each element, different position for the buttons
+        buttons.append(Button("src/images/" + y + ".png", i*100, i*100, "src/images/" + y + "_hover.png", 100, 100, True))
+    for i in range(len(buttons)):
+        if buttons[i].check_mouse((x, x)):
+                return True if particle_type.name == elements[i] else False
+    
            
 def particle_function(start_grid, particle, x, y, expected_pos):
     if particle.update(start_grid, x, y) != None:
@@ -121,4 +128,13 @@ def test_particle():
 
 def test_answer():
     assert button_check_hover(10) == True
-    assert button_check_press(10, ParticleType.WATER) == True
+    
+    # 10, 110, ..., 610 are the positions of the buttons
+    assert button_check_press(10, ParticleType.SAND) == True
+    assert button_check_press(110, ParticleType.WATER) == True
+    assert button_check_press(210, ParticleType.CONCRETE) == True
+    assert button_check_press(310, ParticleType.FIRE) == True
+    assert button_check_press(410, ParticleType.WOOD) == True
+    assert button_check_press(510, ParticleType.GUNPOWDER) == True
+    assert button_check_press(610, ParticleType.VIRUS) == True
+
