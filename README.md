@@ -44,7 +44,7 @@ To run write: python -m pylint FILENAME.py
 # Generate code coverage
 To generate code coverage you need to install [Coverage.py](https://coverage.readthedocs.io/en/7.8.0/). <br/>
 When inside the root directory write into the terminal: python -m coverage run -m pytest <br/>
-To generate a html report write into the terminal: python -m coverage report <br/>
+To generate a coverage report write into the terminal: python -m coverage report <br/>
 To see the report as an HTML write the command: python -m coverage html
 
 # Kanban Board
