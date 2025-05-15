@@ -10,12 +10,15 @@ class Chunk:
         self.cols = size // cell_size
         self.rows = size // cell_size
         self.cells = [] # List of cells in the chunk
+        self.next_cells = Grid(window_width, window_height, cell_size)
 
         for _ in range(self.cols):
             cols = []
             for _ in range(self.rows):
                 cols.append(None)
             self.cells.append(cols)
+        
+        
 
     def draw(self, window):
         for col in range(self.cols):
@@ -75,10 +78,11 @@ class Simulation:
 
     def add_particle(self, particle, x, y):
         if 0 <= x and x < self.cols and 0 <= y and y < self.rows and self.cells[x][y] is None:
-            self.cells[x][y] = particle
+            #self.cells[x][y] = particle
             print("selected chunk = " + str(x // self.chunk_self_cols) + " " +  str(y // self.chunk_self_rows))
             print("absolute = " + str(x) + " " + str(y))
             print("relative = " + str(x % self.chunk_self_cols) + " " + str(y % self.chunk_self_rows))
+            print("reverted = " + str(x * self.chunk_self_cols + x % self.chunk_self_cols) + " " + str(y * self.chunk_self_rows + y % self.chunk_self_rows))
             selected_x = x // self.chunk_self_cols
             selected_y = y // self.chunk_self_rows
             rel_x = x % self.chunk_self_cols
@@ -89,7 +93,7 @@ class Simulation:
 
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
-            self.cells[x][y] = None
+            #self.cells[x][y] = None
             selected_x = x // self.chunk_self_cols
             selected_y = y // self.chunk_self_rows
             rel_x = x % self.chunk_self_cols
@@ -102,14 +106,9 @@ class Simulation:
                 self.cells[col][row] = None
 
     def update_chunk(self, chunk):
-        pass
-
-    def update(self):
-        update_array = [] # Create an array to store the particles that need to be updated
-
-        for col in range(self.cols):
-            for row in range(self.rows):
-                particle = self.cells[col][row]
+        for col in range(chunk.cols):
+            for row in range(chunk.rows):
+                particle = chunk.cells[col][row]
                 if particle is None:
                     continue
                 else:
@@ -127,9 +126,16 @@ class Simulation:
                             self.next_cells.cells[pos[0]][pos[1]] = particle
                         else:
                             self.next_cells.cells[col][row] = particle # Keep the original position if the new one is occupied
+
+    def update(self):
+        update_array = [] # Create an array to store the particles that need to be updated
+
+        for col in range(self.chunk_cols):
+            for row in range(self.chunk_rows):
+                self.update_chunk(self.chunks[col][row])
                     
                 
-
+        
         
         for col in range(self.cols):
             for row in range(self.rows):
