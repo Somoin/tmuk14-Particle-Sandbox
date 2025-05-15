@@ -2,7 +2,7 @@
 **/__pycache__/
 
 #Ignore the config file
-src/config.ini
+config.ini
 
 src/.coverage
 
