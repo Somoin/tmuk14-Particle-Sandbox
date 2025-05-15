@@ -1,7 +1,10 @@
 import pygame as pg
 
 class Grid:
-    def __init__(self, window_width, window_height, cell_size):
+    def __init__(self, x, y, chunk_size, window_width, window_height, cell_size):
+        self.x = x
+        self.y = y
+        self.chunk_size = chunk_size
         self.rows = window_height // cell_size
         self.cols = window_width // cell_size
         self.cell_size = cell_size
@@ -20,4 +23,4 @@ class Grid:
                 if self.cells[col][row] is not None:
                     particle = self.cells[col][row]
                     color = particle.color
-                    pg.draw.rect(window, color, (col * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size))
+                    pg.draw.rect(window, color, (self.x + col * self.cell_size, self.y + row * self.cell_size, self.cell_size, self.cell_size))
