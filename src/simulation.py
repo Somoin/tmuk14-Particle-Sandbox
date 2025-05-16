@@ -9,6 +9,8 @@ class Simulation:
         self.cells = self.grid.cells
         self.next_cells = Grid(window_width, window_height, cell_size) # Create a new grid for the next cells
         self.active_particles = set() # Create a set to store the active particles
+        self.active_particles_to_add = set()
+        self.pause_max_frames = 100
 
     def draw(self, window):
         self.grid.draw(window)
@@ -20,7 +22,9 @@ class Simulation:
                 self.active_particles.add((x,y))
 
 
-    def remove_particle(self, x, y):
+    def check_neighbors(self, x, y):
+        neigbor_found = False
+
         if 0 <= x < self.cols and 0 <= y < self.rows:
             for dx in [-1, 0, 1]: # x direction
                 for dy in [-1, 0, 1]: # y direction
@@ -29,10 +33,42 @@ class Simulation:
                         neighbor = self.cells[nx][ny]
                         if neighbor is not None:
                             neighbor.paused = False
+                            neighbor.count = 0                       
+                            self.active_particles_to_add.add((nx, ny))
+                            neigbor_found = True
+        
+        return neigbor_found
+    
+    # Recursive check neighbors
+    def recursive_check_neighbors(self, x, y):
+        visited = set()
+        queue = [(x, y)]
+
+        while queue:
+            cx, cy = queue.pop()
+
+            if (cx, cy) in visited:
+                continue
+            visited.add((cx, cy))
+
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0:
+                        continue
+                    nx, ny = cx + dx, cy + dy
+
+                    if 0 <= nx < self.cols and 0 <= ny < self.rows:
+                        neighbor = self.cells[nx][ny]
+                        if neighbor and neighbor.paused:
+                            neighbor.paused = False
                             neighbor.count = 0
-                            self.active_particles.add((nx, ny))
-                          
-            
+                            self.active_particles_to_add.add((nx, ny))
+                            queue.append((nx, ny))  # Continue exploring from this one
+
+
+    def remove_particle(self, x, y):     
+        if 0 <= x < self.cols and 0 <= y < self.rows:   
+            self.recursive_check_neighbors(x, y)
             self.active_particles.discard((x,y))
             self.cells[x][y] = None
     
@@ -50,13 +86,14 @@ class Simulation:
         for x, y in self.active_particles:
             particle = self.cells[x][y]
 
-            if particle is None or particle.static or particle.paused:
-                new_active_particles.discard((x, y))
+            if particle is None or particle.static:
                 continue
 
-            #particle.count += 1
-            #if particle.count >= 50:
-            #   particle.static = True 
+            if particle.paused:
+                particle.color = (255, 0, 0)
+                continue
+            else:
+                particle.color = (0, 255, 0)
              
             
             pos = particle.update(self.grid, x, y)
@@ -78,25 +115,30 @@ class Simulation:
             # check neighbors in 3x3 grid 
             for dx in [-1, 0, 1]: # x direction
                 for dy in [-1, 0, 1]: # y direction
-                    nx, ny = x + dx, y + dy
+                    if dx == 0 and dy == 0: # skip itself
+                        continue
+                    nx, ny = x + dx, y + dy # all 8 neighbors
                     if 0 <= nx < self.cols and 0 <= ny < self.rows:
                         neighbor = self.cells[nx][ny]
-                        if neighbor is not None:
-                            new_active_particles.add((nx, ny))
-                        else:
+                        if neighbor is None:
                             surrounded = False
+                        else:
+                            new_active_particles.add((nx, ny))
             
-            """if surrounded:
+            if surrounded:
                 particle.count += 1
-                if particle.count >= 25:
+                if particle.count >= 100: # X frames
                     particle.paused = True
-                new_active_particles.discard((x, y))
-            """
+            else:
+                particle.count = 0
+                
+            
 
             
              
-                        
-         
+        
+        new_active_particles.update(self.active_particles_to_add)
+        self.active_particles_to_add.clear()
         self.active_particles = new_active_particles
 
 
