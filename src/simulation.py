@@ -19,8 +19,20 @@ class Simulation:
             if not particle.static:
                 self.active_particles.add((x,y))
 
+
     def remove_particle(self, x, y):
         if 0 <= x < self.cols and 0 <= y < self.rows:
+            for dx in [-1, 0, 1]: # x direction
+                for dy in [-1, 0, 1]: # y direction
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < self.cols and 0 <= ny < self.rows:
+                        neighbor = self.cells[nx][ny]
+                        if neighbor is not None:
+                            neighbor.paused = False
+                            neighbor.count = 0
+                            self.active_particles.add((nx, ny))
+                          
+            
             self.active_particles.discard((x,y))
             self.cells[x][y] = None
     
@@ -32,14 +44,20 @@ class Simulation:
 
 
     def update(self):
+        #print("Active particles: ", len(self.active_particles))
         new_active_particles = set()
         
         for x, y in self.active_particles:
             particle = self.cells[x][y]
 
-            if particle is None or particle.static:
+            if particle is None or particle.static or particle.paused:
+                new_active_particles.discard((x, y))
                 continue
 
+            #particle.count += 1
+            #if particle.count >= 50:
+            #   particle.static = True 
+             
             
             pos = particle.update(self.grid, x, y)
 
@@ -56,15 +74,32 @@ class Simulation:
                 # If target cell is occupied, keep the original position
                 new_active_particles.add((x, y))
 
-            for dx in [-1, 0, 1]:
-                for dy in [-1, 0, 1]:
+            surrounded = True
+            # check neighbors in 3x3 grid 
+            for dx in [-1, 0, 1]: # x direction
+                for dy in [-1, 0, 1]: # y direction
                     nx, ny = x + dx, y + dy
                     if 0 <= nx < self.cols and 0 <= ny < self.rows:
                         neighbor = self.cells[nx][ny]
-                        if neighbor is not None and not neighbor.static:
+                        if neighbor is not None:
                             new_active_particles.add((nx, ny))
+                        else:
+                            surrounded = False
+            
+            """if surrounded:
+                particle.count += 1
+                if particle.count >= 25:
+                    particle.paused = True
+                new_active_particles.discard((x, y))
+            """
 
+            
+             
+                        
+         
         self.active_particles = new_active_particles
+
+
 
 
     def update2(self):
