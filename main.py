@@ -195,14 +195,14 @@ def main():
                         button.enabled = True
                     for button in page_3_buttons:
                         button.enabled = False
-                if event.key == pg.K_3:
+                """if event.key == pg.K_3:
                     current_page = 3
                     for button in page_1_buttons:
                         button.enabled = False
                     for button in page_2_buttons:
                         button.enabled = False
                     for button in page_3_buttons:
-                        button.enabled = True
+                        button.enabled = True"""
                 if event.key == pg.K_c:
                     simulation.clear()
 

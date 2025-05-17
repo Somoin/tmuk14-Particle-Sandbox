@@ -84,6 +84,8 @@ def moveLeft(grid, x, y, direction, velocity):
             return currPos
         if (x != 0) and grid.cells[x-1-i][y] is None and direction == 0:
             currPos = (x-i-1,y)
+        else:
+            return currPos
     
     if startPos != currPos:
         return currPos
@@ -98,7 +100,8 @@ def moveRight(grid, x, y, direction, velocity):
             return currPos
         if (x != grid.cols-1) and grid.cells[x+1+i][y] is None and direction == 1:
             return(x+i+1,y)
-
+        else:
+            return currPos
     
     if startPos != currPos:
         return currPos
