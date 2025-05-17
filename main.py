@@ -179,6 +179,9 @@ def main():
 
 
             if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    pg.quit()
+                    quit()
                 if event.key == pg.K_1:
                     current_page = 1
                     for button in page_1_buttons:
