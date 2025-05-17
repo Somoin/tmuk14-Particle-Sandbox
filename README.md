@@ -24,6 +24,14 @@ Basic Examples:
 - Water particles that flow
 - Concrete particles that are static
 
+# Controls
+- LMB - Place Particle
+- RMB - Remove Particle
+- Q - Change Cursor type from pixel to block
+- C - Clear the screen
+- 1,2 - Change button page
+- ESC - Quit
+
 # Implementation
 The language used is Python using the [Pygame](https://www.pygame.org/news) library. 
 
